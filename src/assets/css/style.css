@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply text-7xl leading-none font-bold;
+    }
+
+    h2 {
+        @apply text-4xl leading-10 font-bold;
+    }
+
+    h3 {
+        @apply text-3xl leading-9 font-bold;
+    }
+
+    h4 {
+        @apply text-2xl leading-8 font-bold;
+    }
+
+    h5 {
+        @apply text-sm leading-5 font-bold mb-4;
+    }
+
+    ul {
+        @apply text-sm leading-5 font-normal text-gray-500;
+    }
+
+    body {
+        @apply text-base leading-6 font-normal font-sans;
+    }
+}
+
+@layer components {
+    .container {
+        max-width: 1280px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+}
