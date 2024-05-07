@@ -28,7 +28,7 @@
     }
 
     body {
-        @apply text-base leading-6 font-normal font-sans;
+        @apply text-base leading-6 font-normal font-NanamiBold;
     }
 }
 
