@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import IconLogo from './icons/IconLogo.vue'
-import IconFacebook from './icons/IconFacebook.vue'
-import IconInstagram from './icons/IconInstagram.vue'
+import IconHome from './icons/IconHome.vue'
+import IconFacebook from './icons/IconJournal.vue'
+import IconInstagram from './icons/IconProfil.vue'
 import IconTwitter from './icons/IconTwitter.vue'
 import IconLinkedin from './icons/IconLinkedin.vue'
 </script>
@@ -10,7 +10,7 @@ import IconLinkedin from './icons/IconLinkedin.vue'
   <footer class="container bg-Default-white  ">
     <div class="lg:flex lg:justify-center ">
     <div class="my-12 lg:mt-0 mr-40">
-    <IconLogo /></div>
+    <IconHome /></div>
 <div class="columns-2 lg:columns-3 mb-20 space-y-8 space-x-28">
  
     <div>
