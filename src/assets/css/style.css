@@ -83,4 +83,31 @@ h2, h5 {
     }
       
       
+input[type="checkbox"] {
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 15px;
+    border: 1.3px solid var(--rouge);
+    background-color: var(--blanc);
+    border-radius: 2px;
+    position: absolute;
+    top: 5px;
+}
+
+input[type="checkbox"]:checked::before {
+    border: 1px solid #000000;
+    background-image: url(/public/icones/check.svg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--vert-qui-pete);
+}
+
 }

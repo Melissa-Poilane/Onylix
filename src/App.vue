@@ -7,9 +7,7 @@ import WelcomeScreen from './components/WelcomeScreen.vue';
 // Créez une référence pour contrôler l'affichage de l'écran de bienvenue
 const showWelcomeScreen = ref(true);
 
-// Créez une référence pour le statut de connexion de l'utilisateur
-// Vous devrez mettre à jour cette référence en fonction de votre logique d'authentification
-const isUserLoggedIn = ref(false);
+const currentUser = ref()
 
 const router = useRouter();
 
@@ -18,13 +16,16 @@ onMounted(() => {
   setTimeout(() => {
     showWelcomeScreen.value = false;
 
-    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion
-    if (!isUserLoggedIn.value) {
-      router.push('/welcolme-login');
+    // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion, sinon, vers la home page
+    if (!currentUser.value) {
+      router.push('/home');
+    } else {
+      router.push('/connexion');
     }
   }, 2000);
 });
 </script>
+
 
 <template>
   <div id="app">

@@ -1,73 +1,326 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
-import HeaderInscription from '@/components/HeaderInscription.vue';
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import Pocketbase from "pocketbase";
+import HeaderInscription from '@/components/HeaderInscription.vue'
+import { onMounted, ref } from 'vue'
+import PocketBase from 'pocketbase'
+import { useRouter } from "vue-router";
+
+let pb = null
+const currentUser = ref()
+const username = ref('')
+const password = ref('')
+const fullName = ref('')
+const passwordConfirm = ref('')
+
+const welcolme = ref(true)
+const loginMode = ref(false)
+const registerMode = ref(false)
+const termsAccepted = ref(false)
+const step2 = ref(false)
+const step3 = ref(false)
 
 const router = useRouter();
-const email = ref('');
-const password = ref('');
-const errorMessage = ref('');
-const overlayMessage = ref('');
-const signIn = async () => {
+
+onMounted(async () => {
+  pb = new PocketBase('http://127.0.0.1:8090');
+
+  pb.authStore.onChange(() => {
+    currentUser.value = pb.authStore.model
+  }, true)
+
+});
+
+
+const doLogin = async () => {
   try {
-    const user = await Pocketbase.signIn(email.value, password.value);
-    if (user) {
-      // Mettre à jour le statut de connexion de l'utilisateur ici
-      router.push('/index');
+    const authData = await pb.collection('users')
+      .authWithPassword(username.value, password.value);
+
+    if (authData) {
+      router.push('/home')
     }
   } catch (error) {
-    if (error.message === 'User not found') {
-      errorMessage.value = "L'email n'existe pas";
-    } else if (error.message === 'Incorrect password') {
-      errorMessage.value = 'Le mot de passe est incorrect';
-    }
+    alert(error.message)
   }
+}
+
+const validateMDP = () => {
+    if (password.value !== passwordConfirm.value) {
+        return false;
+    } else {
+        return true;
+    }
 };
 
 
-const forgotPassword = async () => {
-  if (email.value === '') {
-    errorMessage.value = 'Saisi ton email';
-  } else {
-    try {
-      await Pocketbase.sendPasswordResetEmail(email.value);
-      overlayMessage.value = 'Un mail a été envoyé pour la réinitialisation';
-    } catch (error) {
-      errorMessage.value = 'Une erreur est survenue';
+const doCreateAccount = async () => {
+  try {
+    if (validateMDP()) {
+    const data = {
+      "username": `user_${self.crypto.randomUUID().split("-")[0]}`,
+      "email": username.value,
+      "emailVisibility": true,
+      "password": password.value,
+      "passwordConfirm": password.value,
+      "name": fullName.value
+    };
+
+    const record = await pb.collection('users').create(data);
+if (record) {
+  await doLogin();
+    } else{
+      console.log("error")
     }
+    }else{
+      alert('Les mots de passe ne correspondent pas')
+    }
+  } catch (error) {
+    alert('Une information est manquante ou incorrecte')
   }
 };
+
 </script>
 
-
 <template>
-  <body class="bg-violet-900 flex flex-col ">
-    <div class="mb-auto flex justify-center">
-      <HeaderInscription :title="'Content de te revoir !'" :subtitle="'Connecte toi à ton compte Onylix'" />
-        <img src="/img/Etoilesconnexion.svg" alt="petites étoiles" class="absolute top-[200px] opacity-50">
-    </div>
+  <body class="bg-violet-900">
+    <div>
+      <!-- ECRAN DACCUEIL -->
+      <div
+        v-if="welcolme"
+        class="flex flex-col justify-between pt-40 pb-16 items-center text-center"
+      >
+        <div>
+          <img src="/public/img/mascotte/mascotte-bvn.svg" alt="image de onyx" class="w-[60dvw]" />
+        </div>
+        <div class="mx-7">
+          <h3 class="mb-3">Bienvenue dans Onylix</h3>
+          <p class="text-2xl mb-7">
+            A partir d’aujourd’hui, nous comprendrons le sens de nos rêves&nbsp;!
+          </p>
+          <div class="py-5 bg-gray-50 rounded-full mb-2">
+            <button
+              @click="
+                registerMode = true,
+                welcolme = false
+              "
+            >
+              <h4>C’est parti</h4>
+            </button>
+          </div>
+          <button
+            @click="
+              loginMode = true,
+              welcolme = false
+            "
+          >
+            Tu as déjà un compte ?
+          </button>
+        </div>
+      </div>
 
-<main class="px-10" >
-    <form>
-      <p>
-    <label for="email" class="h5" >Ton Email </label><br>
-    <input v-model="email" type="email" id="email" placeholder="Ex : Onylix@gmail.com"><br>
-  <br>
-</p>
-<p>
-    <label for="password" class="h5">Ton Mot De Passe</label><br>
-    <input v-model="password" type="password" id="password" placeholder="Ex : super_mot_de_passe@25"><br>
-  <br>
-</p>
-            <p class="text-center mb-5">Mot de passe oublié ?</p>
-           
-            <button class="py-3  bg-gray-50 rounded-full w-full" v-on:click="signIn"> <h4> Connexion</h4></button>
-  <p id="status" class="text-center" v-if="errorMessage">{{ errorMessage }}</p>
- 
-        </form>
-</main>
-<footer>
-<img src="/img/footer_vague.svg" alt="illustration de vagues" class="w-full " >
-</footer></body>
+      <!-- ECRAN DE CONNEXION -->
+      <div v-if="loginMode">
+        <div class="mb-auto flex justify-center">
+          <HeaderInscription
+            :title="'Content de te revoir !'"
+            :subtitle="'Connecte toi à ton compte Onylix'"
+          />
+          <img
+            src="/public/img/etoiles/Etoilesconnexion.svg"
+            alt="petites étoiles"
+            class="absolute top-[200px] opacity-50"
+          />
+        </div>
+        <div class="px-10">
+          <section class="mb-5">
+            <label for="username"><h5>Ton Email</h5></label>
+            <input
+              v-model="username"
+              type="text"
+              name="username"
+              id="username"
+              autocomplete="none"
+              placeholder="Ex : Onylix@gmail.com"
+            />
+          </section>
+          <section class="mb-5">
+            <label for="password"><h5>Ton Mot De Passe</h5></label>
+            <input
+              v-model="password"
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="none"
+              placeholder="Ex : super_mot_de_passe@25"
+            />
+          </section>
+          <!-- RECUPERATION DE MDP A FAIRE -->
+          <RouterLink to="/changementMDP" >
+          <p class="text-center mb-5">Mot de passe oublié ?</p>
+</RouterLink>
+          <button type="button" @click="doLogin" class="py-3 bg-gray-50 rounded-full w-full">
+            <h4>Connexion</h4>
+          </button>
+        </div>
+        <footer>
+          <img src="/public/img/footer_vague.svg" alt="illustration de vagues" class="w-full" />
+        </footer>
+      </div>
+
+      <!-- ECRAN D'INSCRIPTION 1 -->
+      <div v-if="registerMode">
+        <div class="mb-auto flex justify-center">
+          <HeaderInscription :title="'Crée ton compte !'" :subtitle="'Rejoins 200 k rêveurs'" />
+          <img
+            src="/public/img/etoiles/etoilesinscription1.svg"
+            alt="petites étoiles"
+            class="absolute -top-10 right-0 opacity-50"
+          />
+        </div>
+        <div class="px-10">
+          <section class="mb-5">
+            <label for="username"><h5>Ton Email</h5></label>
+            <input
+              v-model="username"
+              type="text"
+              name="username"
+              id="username"
+              autocomplete="none"
+              placeholder="Ex : Onylix@gmail.com"
+            />
+          </section>
+          <section class="mb-5">
+            <label for="password"><h5>Ton Mot De Passe</h5></label>
+            <input
+              v-model="password"
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="none"
+              placeholder="Ex : super_mot_de_passe@25"
+            />
+          </section>
+            <section class="mb-5">
+            <label for="password"><h5>Confirme Ton Mot De Passe</h5></label>
+            <input
+              v-model="passwordConfirm"
+              type="password"
+              name="password"
+              id="password"
+              autocomplete="none"
+            />
+          </section>
+          <section class="mb-5 flex items-center gap-3">
+            <input type="checkbox" id="terms" v-model="termsAccepted" required />
+            <label for="terms" class="text-sm"
+              >J’accepte les conditions générales d’utilisations</label
+            >
+          </section>
+
+          <div class="py-3 bg-gray-50 rounded-full text-center mb-10">
+            <button
+              @click="
+                registerMode = false,
+                step2 = true
+              "
+            >
+              <h4>Créer un compte</h4>
+            </button>
+          </div>
+          <div class="relative flex flex-col items-center">
+            <img
+              src="/public/img/suivi-inscription1.svg "
+              alt="premiere étape de l'inscription"
+              class="max-w-14 fixed bottom-7"
+            />
+            <img
+              src="/public/img/etoiles/etoilesinscription2.svg"
+              alt="etoiles"
+              class="absolute -bottom-28 -left-10 opacity-50"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- ECRAN D'INSCRIPTION 2 -->
+      <div v-if="step2">
+        <div class="flex flex-col justify-between items-center min-h-screen">
+          <div class="px-10 w-full">
+            <div class="relative text-center pt-28 pb-14">
+              <h4 class="text-white">Comment devons nous t’appeler?</h4>
+              <p>Choisi un nom de rêveur unique</p>
+              <img
+                src="/public/img/etoiles/1grosseetoile.svg"
+                alt="etoile"
+                class="opacity-40 absolute top-20 -right-10"
+              />
+            </div>
+            <div class="mb-5 relative">
+              <input
+                v-model="fullName"
+                type="text"
+                name="fullName"
+                id="fullName"
+                autocomplete="none"
+                placeholder="Ex : RhinocérosOnyrique273"
+              />
+              <img
+                src="/public/img/papillon1.svg"
+                alt="image de papillon"
+                class="absolute top-14 -right-7"
+              />
+            </div>
+          </div>
+          <div class="flex flex-col items-center mb-5 relative">
+            <img
+              src="/public/img/papillon2.svg"
+              alt="image de papillon"
+              class="absolute bottom-5 left-0"
+            />
+            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 w-screen">
+              <button
+                @click="
+                  step2 = false,
+                  step3 = true
+                "
+              >
+                <h4>Continuer</h4>
+              </button>
+            </div>
+            <img
+              src="/public/img/suivi-inscription2.svg"
+              alt="deuxieme étape de l'inscription"
+              class="max-w-14"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- ECRAN D'INSCRIPTION 3 -->
+      <div v-if="step3">
+        <div class="flex flex-col justify-between items-center min-h-screen">
+          <div class="text-center">
+            <img src="/public/img/choixavatar.svg" alt="illustration avatar" />
+            <h1 class="text-white">Choisi ton avatar</h1>
+          </div>
+
+          <div class="flex flex-col items-center mb-5 relative">
+            <img
+              src="/public/img/papillon2.svg"
+              alt="image de papillon"
+              class="absolute bottom-5 left-0"
+            />
+            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 w-screen">
+              <button @click="doCreateAccount"><h4>Continuer</h4></button>
+            </div>
+            <img
+              src="/public/img/suivi-inscription3.svg"
+              alt="derniere étape de l'inscription"
+              class="max-w-14"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </template>
