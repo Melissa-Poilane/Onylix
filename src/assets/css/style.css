@@ -110,4 +110,13 @@ input[type="checkbox"]:checked::before {
     background-color: var(--vert-qui-pete);
 }
 
+.path-profil {
+    max-width: 100px; /* Largeur de l'image */
+            height: 100px; /* Gardez l'aspect ratio de l'image */
+            object-position: center; /* Centre l'image */
+            border-radius: 50%; /* Arrondir les coins */
+}
+.selected-avatar {
+   @apply  ring-4 ring-gray-50;
+}
 }
