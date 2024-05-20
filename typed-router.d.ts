@@ -22,7 +22,9 @@ declare module 'vue-router/auto-routes' {
     '/ChangementMDP': RouteRecordInfo<'/ChangementMDP', '/ChangementMDP', Record<never, never>, Record<never, never>>,
     '/connexion': RouteRecordInfo<'/connexion', '/connexion', Record<never, never>, Record<never, never>>,
     '/home': RouteRecordInfo<'/home', '/home', Record<never, never>, Record<never, never>>,
+    '/infos-legales': RouteRecordInfo<'/infos-legales', '/infos-legales', Record<never, never>, Record<never, never>>,
     '/journal': RouteRecordInfo<'/journal', '/journal', Record<never, never>, Record<never, never>>,
     '/profil': RouteRecordInfo<'/profil', '/profil', Record<never, never>, Record<never, never>>,
+    '/welcolmeuser': RouteRecordInfo<'/welcolmeuser', '/welcolmeuser', Record<never, never>, Record<never, never>>,
   }
 }

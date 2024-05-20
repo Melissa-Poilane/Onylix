@@ -6,8 +6,7 @@ import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
 export enum Collections {
-	Agent = "agent",
-	Maison = "maison",
+	Reves = "Reves",
 	Users = "users",
 }
 
@@ -35,46 +34,63 @@ export type AuthSystemFields<T = never> = {
 
 // Record types for each collection
 
-export type AgentRecord = {
-	Email?: string
-	nom?: string
-	prenom?: string
-	telephone?: number
+export enum RevesTypeReveOptions {
+	"Cauchemar" = "Cauchemar",
+	"Récurrent" = "Récurrent",
+	"Lucide" = "Lucide",
+	"Rêve" = "Rêve",
 }
 
-export type MaisonRecord = {
-	adresse?: string
-	favori?: boolean
-	imgAlt?: string
-	imgPath?: string
-	nbChambres?: number
-	nbSdb?: number
-	nomMaison?: string
-	prix?: number
-	surface?: number
+export enum RevesLongeurReveOptions {
+	"E1" = "1",
+	"E2" = "2",
+	"E3" = "3",
+	"E4" = "4",
+	"E5" = "5",
 }
 
+export enum RevesNoteReveOptions {
+	"E1" = "1",
+	"E2" = "2",
+	"E3" = "3",
+	"E4" = "4",
+	"E5" = "5",
+}
+export type RevesRecord = {
+	Date_heure_de_saisie?: IsoDateString
+	Description: string
+	Extrait_de_description?: string
+	Longeur_reve?: RevesLongeurReveOptions
+	Note_reve?: RevesNoteReveOptions
+	Titre: string
+	Type_reve?: RevesTypeReveOptions
+	online?: boolean
+}
+
+export enum UsersAbonnementOptions {
+	"free" = "free",
+	"premium" = "premium",
+	"premium +" = "premium +",
+}
 export type UsersRecord = {
-	avatar?: string
-	name?: string
+	Abonnement?: UsersAbonnementOptions
+	Avatar?: string
+	name: string
 }
 
 // Response types include system fields and match responses from the PocketBase API
-export type AgentResponse<Texpand = unknown> = Required<AgentRecord> & BaseSystemFields<Texpand>
-export type MaisonResponse<Texpand = unknown> = Required<MaisonRecord> & BaseSystemFields<Texpand>
+export type RevesResponse<Texpand = unknown> = Required<RevesRecord> & BaseSystemFields<Texpand>
 export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSystemFields<Texpand>
 
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
-	agent: AgentRecord
-	maison: MaisonRecord
+	Reves: RevesRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
-	agent: AgentResponse
-	maison: MaisonResponse
+	Reves: RevesResponse
 	users: UsersResponse
 }
 
@@ -82,7 +98,6 @@ export type CollectionResponses = {
 // https://github.com/pocketbase/js-sdk#specify-typescript-definitions
 
 export type TypedPocketBase = PocketBase & {
-	collection(idOrName: 'agent'): RecordService<AgentResponse>
-	collection(idOrName: 'maison'): RecordService<MaisonResponse>
+	collection(idOrName: 'Reves'): RecordService<RevesResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }

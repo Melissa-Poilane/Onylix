@@ -50,7 +50,7 @@ onMounted(() => {
 
 <template>
   <nav>
-    <div class="tabbar fixed bottom-0 w-full h-32 ">
+    <div class="tabbar fixed bottom-0 w-full h-32 z-50">
       <ul class=" absolute bottom-0 w-full h-[70px] bg-zinc-900 justify-between px-7 flex items-center">
         <li class="tab-item">
           <RouterLink to="/home">

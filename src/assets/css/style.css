@@ -44,7 +44,7 @@ h2, h5 {
     }
 
     input {
-        @apply bg-transparent border border-gray-50 rounded-xl p-3 w-full text-base;
+        @apply bg-transparent border border-gray-50 rounded-xl p-3 w-full text-base mt-2;
     }
 
     input:focus {
@@ -84,39 +84,28 @@ h2, h5 {
       
       
 input[type="checkbox"] {
-    background-color: transparent;
-    width: 20px;
-    height: 20px;
-    position: relative;
+   @apply appearance-none border-none bg-transparent w-5 h-5 relative;
 }
 
 input[type="checkbox"]::before {
-    content: "";
-    display: block;
-    width: 16px;
-    height: 15px;
-    border: 1.3px solid var(--rouge);
-    background-color: var(--blanc);
-    border-radius: 2px;
-    position: absolute;
-    top: 5px;
+   @apply content-[''] block w-5 h-5 border-2 border-white rounded-lg absolute -top-0.5 left-1 ;
 }
 
 input[type="checkbox"]:checked::before {
-    border: 1px solid #000000;
-    background-image: url(/public/icones/check.svg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: var(--vert-qui-pete);
+    @apply bg-center bg-no-repeat;
+    background-image: url('../img/icones/check.svg');
 }
 
 .path-profil {
-    max-width: 100px; /* Largeur de l'image */
-            height: 100px; /* Gardez l'aspect ratio de l'image */
-            object-position: center; /* Centre l'image */
-            border-radius: 50%; /* Arrondir les coins */
-}
+    max-width: 100px;
+            height: 100px; 
+            object-position: center; 
+        border-radius: 50%;
+        }
 .selected-avatar {
-   @apply  ring-4 ring-gray-50;
+    @apply ring-4 ring-gray-50;
+}
+.degradsombre {
+    @apply bg-gradient-to-b from-[#361271] to-violet-900;
 }
 }

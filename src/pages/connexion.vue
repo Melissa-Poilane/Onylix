@@ -42,7 +42,7 @@ const doLogin = async () => {
       .authWithPassword(username.value, password.value);
 
     if (authData) {
-      router.push('/home')
+      router.push('/welcolmeuser')
     }
   } catch (error) {
     alert(error.message)
@@ -110,12 +110,11 @@ const isSelected = (index) => {
       <!-- ECRAN DACCUEIL -->
       <div
         v-if="welcolme"
-        class="flex flex-col justify-between pt-40 pb-16 items-center text-center"
+        class="flex flex-col justify-between items-center min-h-screen pt-[15dvh] text-center gap-[10dvh]"
       >
-        <div>
           <img src="/public/img/mascotte/mascotte-bvn.svg" alt="image de onyx" class="w-[60dvw]" />
-        </div>
-        <div class="mx-7">
+       
+        <div class="mx-7 mb-10">
           <h3 class="mb-3">Bienvenue dans Onylix</h3>
           <p class="text-2xl mb-7">
             A partir d’aujourd’hui, nous comprendrons le sens de nos rêves&nbsp;!
@@ -142,7 +141,8 @@ const isSelected = (index) => {
       </div>
 
       <!-- ECRAN DE CONNEXION -->
-      <div v-if="loginMode">
+      <div v-if="loginMode" class="flex flex-col justify-between min-h-screen">
+        <div>
         <div class="mb-auto flex justify-center">
           <HeaderInscription
             :title="'Content de te revoir !'"
@@ -154,8 +154,8 @@ const isSelected = (index) => {
             class="absolute top-[200px] opacity-50"
           />
         </div>
-        <div class="px-10">
-          <section class="mb-5">
+        <div class="px-10 flex flex-col gap-5">
+          <section >
             <label for="username"><h5>Ton Email</h5></label>
             <input
               v-model="username"
@@ -166,7 +166,7 @@ const isSelected = (index) => {
               placeholder="Ex : Onylix@gmail.com"
             />
           </section>
-          <section class="mb-5">
+          <section>
             <label for="password"><h5>Ton Mot De Passe</h5></label>
             <input
               v-model="password"
@@ -185,23 +185,25 @@ const isSelected = (index) => {
             <h4>Connexion</h4>
           </button>
         </div>
+      </div>
         <footer>
           <img src="/public/img/footer_vague.svg" alt="illustration de vagues" class="w-full" />
         </footer>
       </div>
 
       <!-- ECRAN D'INSCRIPTION 1 -->
-      <div v-if="registerMode">
-        <div class="mb-auto flex justify-center">
+      <div v-if="registerMode" class="flex flex-col justify-between min-h-screen ">
+        <div>
+        <div class="flex justify-center">
           <HeaderInscription :title="'Crée ton compte !'" :subtitle="'Rejoins 200 k rêveurs'" />
           <img
             src="/public/img/etoiles/etoilesinscription1.svg"
             alt="petites étoiles"
-            class="absolute -top-10 right-0 opacity-50"
+            class="absolute -top-7 right-0 opacity-50"
           />
         </div>
-        <div class="px-10">
-          <section class="mb-5">
+        <div class="px-10 flex flex-col gap-5">
+          <section >
             <label for="username"><h5>Ton Email</h5></label>
             <input
               v-model="username"
@@ -212,7 +214,7 @@ const isSelected = (index) => {
               placeholder="Ex : Onylix@gmail.com"
             />
           </section>
-          <section class="mb-5">
+          <section >
             <label for="password"><h5>Ton Mot De Passe</h5></label>
             <input
               v-model="password"
@@ -223,7 +225,7 @@ const isSelected = (index) => {
               placeholder="Ex : super_mot_de_passe@25"
             />
           </section>
-            <section class="mb-5">
+            <section >
             <label for="password"><h5>Confirme Ton Mot De Passe</h5></label>
             <input
               v-model="passwordConfirm"
@@ -233,14 +235,14 @@ const isSelected = (index) => {
               autocomplete="none"
             />
           </section>
-          <section class="mb-5 flex items-center gap-3">
+          <section class="flex items-center gap-3">
             <input type="checkbox" id="terms" v-model="termsAccepted" required />
             <label for="terms" class="text-sm"
-              >J’accepte les conditions générales d’utilisations</label
+              >J’accepte les <RouterLink to="/infos-legales" class="text-violet-300 underline"> <strong> conditions générales d’utilisations</strong></RouterLink></label
             >
           </section>
 
-          <div class="py-3 bg-gray-50 rounded-full text-center mb-10">
+          <div class="py-4 bg-gray-50 rounded-full text-center mb-5">
             <button
               @click="
                 registerMode = false,
@@ -250,19 +252,17 @@ const isSelected = (index) => {
               <h4>Créer un compte</h4>
             </button>
           </div>
-          <div class="relative flex flex-col items-center">
+          
+        </div>
+      </div>
+        <div class="flex flex-col items-center mb-2"> 
             <img
               src="/public/img/suivi-inscription1.svg "
               alt="premiere étape de l'inscription"
-              class="max-w-14 fixed bottom-7"
+              class="max-w-14 "
             />
-            <img
-              src="/public/img/etoiles/etoilesinscription2.svg"
-              alt="etoiles"
-              class="absolute -bottom-28 -left-10 opacity-50"
-            />
+           
           </div>
-        </div>
       </div>
 
       <!-- ECRAN D'INSCRIPTION 2 -->
@@ -326,8 +326,8 @@ const isSelected = (index) => {
             <img src="/public/img/choixavatar.svg" alt="illustration avatar" />
             <h1 class="text-white">Choisi ton avatar</h1>
 
-            <div class="profile-pictures">
-              <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="profile-pictures mt-10 flex flex-col items-center">
+              <div class="grid grid-cols-3 gap-4 mb-4 ">
                 <svg v-for="(image, index) in profilePictures" :key="index" class="path-profil " id="avatar" type="avatar"
      :class="{ 'selected-avatar': isSelected(index) }"
      @click="selectImage(index)">
@@ -345,12 +345,7 @@ const isSelected = (index) => {
       </div>
           </div>
 
-          <div class="flex flex-col items-center mb-5 relative">
-            <img
-              src="/public/img/papillon2.svg"
-              alt="image de papillon"
-              class="absolute bottom-5 left-0"
-            />
+          <div class="flex flex-col items-center mb-5 ">
            
             <div class="py-3 bg-gray-50 rounded-full text-center mb-2 w-screen">
               <button @click="doCreateAccount"><h4>Continuer</h4></button>

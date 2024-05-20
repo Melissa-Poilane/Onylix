@@ -18,7 +18,7 @@ onMounted(() => {
 
     // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion, sinon, vers la home page
     if (!currentUser.value) {
-      router.push('/home');
+      router.push('/welcolmeuser');
     } else {
       router.push('/connexion');
     }
@@ -33,7 +33,7 @@ onMounted(() => {
     <template v-if="showWelcomeScreen">
       <WelcomeScreen />
     </template>
-    
+
     <template v-else>
       <main>
         <RouterView />
