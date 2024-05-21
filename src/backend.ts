@@ -1,7 +1,19 @@
 import PocketBase from 'pocketbase'
-import { type TypedPocketBase } from './pocketbase-types.js'
+import { Collections, type RevesResponse, type UsersResponse } from './pocketbase-types'
 
-export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE) as TypedPocketBase
+export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE)
 
-// Copier ici les fonctions developpées en R214 | Système d'information
-/* Mélissa Poilâne */
+export async function getDream() {
+  return await pb.collection(Collections.Reves).getFullList<RevesResponse>()
+}
+export async function getDreamOnline() {
+  return await pb.collection(Collections.Reves).getFullList<RevesResponse>( {
+    filter: `online = true`,
+    sort: '+date', 
+    expand: 'users'
+  })
+}
+
+export async function getUser() {
+  return await pb.collection(Collections.Users).getFullList<UsersResponse>()
+}

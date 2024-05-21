@@ -24,11 +24,25 @@ onMounted(() => {
     }
   }, 2000);
 });
+
+import { onErrorCaptured, ref } from 'vue'
+
+const error = ref<Error | null>(null)
+
+onErrorCaptured((err, component, info) => {
+  // console.log({ err, component, info })
+  error.value = err
+  return true
+})
+
+
 </script>
 
 
 <template>
+  <p v-if="error">Erreur : {{ error.message }}</p>
   <div id="app">
+  <Suspense> 
     <!-- Utilisez une condition pour afficher soit l'écran de bienvenue soit l'application principale -->
     <template v-if="showWelcomeScreen">
       <WelcomeScreen />
@@ -39,5 +53,6 @@ onMounted(() => {
         <RouterView />
       </main>
     </template>
+  </Suspense>
   </div>
 </template>
