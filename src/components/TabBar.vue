@@ -13,10 +13,14 @@ const setClass = (node: HTMLElement, className: string) => {
 };
 
 import { onMounted } from 'vue';
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+const currentUser = ref()
+const router = useRouter();
+import { pb } from '@/backend'
 
 onMounted(() => {
   const uls = document.querySelectorAll("ul");
-
   uls.forEach((ul) => {
     const resetClass = (ul.parentNode as HTMLElement)?.getAttribute("class");
     const lis = ul.querySelectorAll("li");
@@ -45,15 +49,25 @@ onMounted(() => {
       });
     });
   });
+
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  }, true)
 });
+
+
+
+
 </script>
 
 <template>
-  <nav>
+  <div v-if="currentUser">
+  <nav >
     <div class="tabbar fixed bottom-0 w-full h-32 z-50">
       <ul class=" absolute bottom-0 w-full h-[70px] bg-zinc-900 justify-between px-7 flex items-center">
         <li class="tab-item">
-          <RouterLink to="/home">
+          <RouterLink to="/">
             <IconHome />
           </RouterLink>
         </li>
@@ -62,12 +76,12 @@ onMounted(() => {
             <IconJournal />
           </RouterLink>
         </li>
-        <li class="tab-item">
+        <li class="tab-item" >
           <RouterLink to="/profil">
-            <IconProfil />
+            <IconProfil v-bind="currentUser" class=" w-[42.91px] h-[45px]" />
           </RouterLink>
         </li>
       </ul>
     </div>
-  </nav>
+  </nav></div>
 </template>

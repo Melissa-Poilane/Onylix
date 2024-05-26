@@ -21,10 +21,10 @@ declare module 'vue-router/auto-routes' {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
     '/ChangementMDP': RouteRecordInfo<'/ChangementMDP', '/ChangementMDP', Record<never, never>, Record<never, never>>,
     '/connexion': RouteRecordInfo<'/connexion', '/connexion', Record<never, never>, Record<never, never>>,
-    '/home': RouteRecordInfo<'/home', '/home', Record<never, never>, Record<never, never>>,
     '/infos-legales': RouteRecordInfo<'/infos-legales', '/infos-legales', Record<never, never>, Record<never, never>>,
     '/journal': RouteRecordInfo<'/journal', '/journal', Record<never, never>, Record<never, never>>,
     '/profil': RouteRecordInfo<'/profil', '/profil', Record<never, never>, Record<never, never>>,
+    '/reves/': RouteRecordInfo<'/reves/', '/reves', Record<never, never>, Record<never, never>>,
     '/reves/[id]': RouteRecordInfo<'/reves/[id]', '/reves/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/welcolmeuser': RouteRecordInfo<'/welcolmeuser', '/welcolmeuser', Record<never, never>, Record<never, never>>,
   }

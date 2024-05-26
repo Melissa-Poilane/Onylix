@@ -6,7 +6,7 @@ import type PocketBase from 'pocketbase'
 import type { RecordService } from 'pocketbase'
 
 export enum Collections {
-	Reves = "Reves",
+	Reves = "reves",
 	Users = "users",
 }
 
@@ -57,7 +57,6 @@ export enum RevesNoteReveOptions {
 	"E5" = "5",
 }
 export type RevesRecord = {
-	Auteur?: RecordIdString
 	Date?: IsoDateString
 	Description: string
 	Extrait_de_description?: string
@@ -66,6 +65,7 @@ export type RevesRecord = {
 	Titre: string
 	Type_reve?: RevesTypeReveOptions
 	online?: boolean
+	users?: RecordIdString
 }
 
 export enum UsersAbonnementOptions {
@@ -86,12 +86,12 @@ export type UsersResponse<Texpand = unknown> = Required<UsersRecord> & AuthSyste
 // Types containing all Records and Responses, useful for creating typing helper functions
 
 export type CollectionRecords = {
-	Reves: RevesRecord
+	reves: RevesRecord
 	users: UsersRecord
 }
 
 export type CollectionResponses = {
-	Reves: RevesResponse
+	reves: RevesResponse
 	users: UsersResponse
 }
 
@@ -99,6 +99,6 @@ export type CollectionResponses = {
 // https://github.com/pocketbase/js-sdk#specify-typescript-definitions
 
 export type TypedPocketBase = PocketBase & {
-	collection(idOrName: 'Reves'): RecordService<RevesResponse>
+	collection(idOrName: 'reves'): RecordService<RevesResponse>
 	collection(idOrName: 'users'): RecordService<UsersResponse>
 }

@@ -7,7 +7,9 @@ import { useRouter } from "vue-router";
 import { profilePictures } from '@/data';
 
 defineProps<{
-  imgAltpfp: string
+  id: number;
+  imgpfp: string;
+    imgAlt: string;
 }>()
 
 let pb = null
@@ -66,9 +68,14 @@ const doCreateAccount = async () => {
     }
 
     if (!selectedImageIndex.value) {
-      alert('Vous devez choisir un avatar');
+      alert('Vous devez choisir un Avatar');
       return;
     }
+
+    if (!termsAccepted.value) {
+    alert('Vous devez accepter les conditions générales d’utilisations')
+    return;
+  }
 
     const data = {
       "username": `user_${self.crypto.randomUUID().split("-")[0]}`,
@@ -77,13 +84,10 @@ const doCreateAccount = async () => {
       "password": password.value,
       "passwordConfirm": password.value,
       "name": fullName.value,
-      "avatar": selectedImageIndex.value,
+      "Abonnement": "free",
     };
 
-    const formData = new FormData();
-    formData.append('avatar', selectedImageIndex.value);
-
-    const record = await pb.collection('users').create(data, formData);
+    const record = await pb.collection('users').create(data);
 
     if (record) {
       await doLogin();
@@ -91,16 +95,15 @@ const doCreateAccount = async () => {
       console.log("error");
     }
   } catch (error) {
-    alert('Une information est manquante ou incorrecte');
+    alert('Une erreur est survenue');
   }
 };
 
-const selectImage = (index) => {
-  selectedImageIndex.value = index;
+const selectImage = (Avatar) => {
+  selectedImageIndex.value = Avatar;
 }
-
-const isSelected = (index) => {
-  return selectedImageIndex.value === index;
+const isSelected = (Avatar) => {
+  return selectedImageIndex.value === Avatar;
 }
 </script>
 
@@ -326,19 +329,17 @@ const isSelected = (index) => {
             <img src="/public/img/choixavatar.svg" alt="illustration avatar" />
             <h1 class="text-white">Choisi ton avatar</h1>
 
+            
+
             <div class="profile-pictures mt-10 flex flex-col items-center">
               <div class="grid grid-cols-3 gap-4 mb-4 ">
-                <svg v-for="(image, index) in profilePictures" :key="index" class="path-profil " id="avatar" type="avatar"
-     :class="{ 'selected-avatar': isSelected(index) }"
-     @click="selectImage(index)">
-  <defs>
-    <clipPath id="clipPathShape">
-      <path d="M70 12c9 5 14 9 17 13 3 5 4 11 4 22v5c0 11 0 17-3 22-3 5-8 8-17 14l-3 2c-9 6-14 9-19 9s-10-3-19-9l-3-2c-9-6-14-9-17-14-3-5-3-11-3-22v-5c0-11 0-17 3-22 3-5 8-8 17-14l3-2c9-6 14-9 19-9s10 3 19 9l3 2z" />
-    </clipPath>
-  </defs>
-  <image :xlink:href="image.imgpfp" :alt="imgAltpfp" width="100%" height="100%" clip-path="url(#clipPathShape)"/>
-</svg>
-      
+                <div class="relative bg-transparent clip-path-custom w-[90px] h-[100px]" 
+     v-for="(image, Avatar) in profilePictures" 
+     :key="image.id"
+     :class="{ '!bg-white': isSelected(Avatar) }"
+     @click="selectImage(Avatar)">
+  <img :src="image.imgpfp" :alt="image.imgAlt" class="absolute inset-0 object-cover pathed">
+</div>
 
       </div>
 

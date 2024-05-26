@@ -1,25 +1,31 @@
 export const profilePictures = [
     {
+      id: '7',
       imgpfp: '../public/avatars/panda.webp',
       imgAlt: 'image de panda'
     },
     {
+      id: '2',
       imgpfp: '../public/avatars/hibou.webp',
       imgAlt: 'image de hibou'
     },
     {
+      id: '3',
       imgpfp: '../public/avatars/corbeau.webp',
       imgAlt: 'image de corbeau'
     },
     {
+      id: '4',
       imgpfp: '../public/avatars/chat.webp',
       imgAlt: 'image de chat'
     },
     {
+      id: '5',
       imgpfp: '../public/avatars/tigre.webp',
       imgAlt: 'image de tigre'
     },
     {
+      id: '6',
       imgpfp: '../public/avatars/biche.webp',
       imgAlt: 'image de biche'
     },

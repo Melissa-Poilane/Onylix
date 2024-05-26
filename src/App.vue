@@ -9,7 +9,7 @@ const showWelcomeScreen = ref(true);
 
 const currentUser = ref()
 
-const router = useRouter();
+const router = useRouter()
 
 onMounted(() => {
   // Après 2 secondes, cachez l'écran de bienvenue et redirigez l'utilisateur
@@ -25,15 +25,14 @@ onMounted(() => {
   }, 2000);
 });
 
-import { onErrorCaptured, ref } from 'vue'
+import { onErrorCaptured} from 'vue'
 
 const error = ref<Error | null>(null)
-
-onErrorCaptured((err, component, info) => {
-  // console.log({ err, component, info })
+onErrorCaptured((err) => {
   error.value = err
   return true
 })
+
 
 
 </script>

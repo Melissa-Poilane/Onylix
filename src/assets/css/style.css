@@ -96,16 +96,9 @@ input[type="checkbox"]:checked::before {
     background-image: url('../img/icones/check.svg');
 }
 
-.path-profil {
-    max-width: 100px;
-            height: 100px; 
-            object-position: center; 
-        border-radius: 50%;
-        }
-.selected-avatar {
-    @apply ring-4 ring-gray-50;
-}
+
 .degradsombre {
     @apply bg-gradient-to-b from-[#361271] to-violet-900;
 }
+
 }
