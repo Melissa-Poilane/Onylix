@@ -25,7 +25,7 @@ const registerMode = ref(false)
 const termsAccepted = ref(false)
 const step2 = ref(false)
 const step3 = ref(false)
-const selectedImageIndex = ref(null)
+let selectedImageIndex = ref(null)
 const router = useRouter();
 
 onMounted(async () => {
@@ -52,7 +52,12 @@ const doLogin = async () => {
 }
 
 const validateMDP = () => {
+  if (password.value.length < 8) {
+    alert('Le mot de passe doit contenir au moins 8 caractères');
+    return false;
+  }
     if (password.value !== passwordConfirm.value) {
+      alert('Les mots de passe ne correspondent pas');
         return false;
     } else {
         return true;
@@ -63,7 +68,6 @@ const validateMDP = () => {
 const doCreateAccount = async () => {
   try {
     if (!validateMDP()) {
-      alert('Les mots de passe ne correspondent pas');
       return;
     }
 
@@ -96,15 +100,15 @@ const doCreateAccount = async () => {
       console.log("error");
     }
   } catch (error) {
-    alert('Une erreur est survenue');
+    alert('Cet email est déjà utilisé !');
   }
 };
 
-const selectImage = (Avatar) => {
-  selectedImageIndex.value = Avatar;
+const selectImage = (image) => {
+  selectedImageIndex.value = image;
 }
-const isSelected = (Avatar) => {
-  return selectedImageIndex.value === Avatar;
+const isSelected = (image) => {
+  return selectedImageIndex.value === image;
 }
 </script>
 
@@ -116,7 +120,7 @@ const isSelected = (Avatar) => {
         v-if="welcolme"
         class="flex flex-col justify-between items-center min-h-screen pt-[15dvh] text-center gap-[10dvh]"
       >
-          <img src="/public/img/mascotte/mascotte-bvn.svg" alt="image de onyx" class="w-[60dvw]" />
+          <img src="/img/mascotte/mascotte-bvn.svg" alt="image de onyx" class="w-[60dvw]" />
        
         <div class="mx-7 mb-10">
           <h3 class="mb-3">Bienvenue dans Onylix</h3>
@@ -153,7 +157,7 @@ const isSelected = (Avatar) => {
             :subtitle="'Connecte toi à ton compte Onylix'"
           />
           <img
-            src="/public/img/etoiles/Etoilesconnexion.svg"
+            src="/img/etoiles/Etoilesconnexion.svg"
             alt="petites étoiles"
             class="absolute top-[200px] opacity-50"
           />
@@ -191,7 +195,7 @@ const isSelected = (Avatar) => {
         </div>
       </div>
         <footer>
-          <img src="/public/img/footer_vague.svg" alt="illustration de vagues" class="w-full" />
+          <img src="/img/footer_vague.svg" alt="illustration de vagues" class="w-full" />
         </footer>
       </div>
 
@@ -201,7 +205,7 @@ const isSelected = (Avatar) => {
         <div class="flex justify-center">
           <HeaderInscription :title="'Crée ton compte !'" :subtitle="'Rejoins 200 k rêveurs'" />
           <img
-            src="/public/img/etoiles/etoilesinscription1.svg"
+            src="/img/etoiles/etoilesinscription1.svg"
             alt="petites étoiles"
             class="absolute -top-7 right-0 opacity-50"
           />
@@ -261,7 +265,7 @@ const isSelected = (Avatar) => {
       </div>
         <div class="flex flex-col items-center mb-2"> 
             <img
-              src="/public/img/suivi-inscription1.svg "
+              src="/img/suivi-inscription1.svg "
               alt="premiere étape de l'inscription"
               class="max-w-14 "
             />
@@ -277,7 +281,7 @@ const isSelected = (Avatar) => {
               <h4 class="text-white">Comment devons nous t’appeler?</h4>
               <p>Choisi un nom de rêveur unique</p>
               <img
-                src="/public/img/etoiles/1grosseetoile.svg"
+                src="/img/etoiles/1grosseetoile.svg"
                 alt="etoile"
                 class="opacity-40 absolute top-20 -right-10"
               />
@@ -292,7 +296,7 @@ const isSelected = (Avatar) => {
                 placeholder="Ex : RhinocérosOnyrique273"
               />
               <img
-                src="/public/img/papillon1.svg"
+                src="/img/papillon1.svg"
                 alt="image de papillon"
                 class="absolute top-14 -right-7"
               />
@@ -300,7 +304,7 @@ const isSelected = (Avatar) => {
           </div>
           <div class="flex flex-col items-center mb-5 relative">
             <img
-              src="/public/img/papillon2.svg"
+              src="/img/papillon2.svg"
               alt="image de papillon"
               class="absolute bottom-5 left-0"
             />
@@ -315,7 +319,7 @@ const isSelected = (Avatar) => {
               </button>
             </div>
             <img
-              src="/public/img/suivi-inscription2.svg"
+              src="/img/suivi-inscription2.svg"
               alt="deuxieme étape de l'inscription"
               class="max-w-14"
             />
@@ -327,7 +331,7 @@ const isSelected = (Avatar) => {
       <div v-if="step3">
         <div class="flex flex-col justify-between items-center min-h-screen">
           <div class="text-center">
-            <img src="/public/img/choixavatar.svg" alt="illustration avatar" />
+            <img src="/img/choixavatar.svg" alt="illustration avatar" />
             <h1 class="text-white">Choisi ton avatar</h1>
 
             
@@ -335,10 +339,10 @@ const isSelected = (Avatar) => {
             <div class="profile-pictures mt-10 flex flex-col items-center">
               <div class="grid grid-cols-3 gap-4 mb-4 ">
                 <div class="relative bg-transparent clip-path-custom w-[90px] h-[100px]" 
-     v-for="(image, Avatar) in profilePictures" 
+     v-for="image in profilePictures" 
      :key="image.id"
-     :class="{ '!bg-white': isSelected(Avatar) }"
-     @click="selectImage(Avatar)">
+     :class="{ '!bg-white': isSelected(image.id) }"
+     @click="selectImage(image.id)">
   <img :src="image.imgpfp" :alt="image.imgAlt" class="absolute inset-0 object-cover pathed">
 </div>
 
@@ -353,7 +357,7 @@ const isSelected = (Avatar) => {
               <button @click="doCreateAccount"><h4>Continuer</h4></button>
             </div>
             <img
-              src="/public/img/suivi-inscription3.svg"
+              src="/img/suivi-inscription3.svg"
               alt="derniere étape de l'inscription"
               class="max-w-14"
             />

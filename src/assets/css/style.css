@@ -32,7 +32,7 @@ h2, h5 {
     }
 
     body {
-        @apply text-lg font-DelSemiLight text-gray-50 min-h-screen;
+        @apply text-lg font-DelSemiLight text-gray-50 min-h-screen bg-violet-900;
     }
 
     .BodyS {

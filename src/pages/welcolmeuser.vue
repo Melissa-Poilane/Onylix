@@ -24,19 +24,19 @@ onMounted(async () => {
 <template>
   <div v-if="currentUser">
     
-    <div class=" flex flex-col bg-violet-950 degradsombre min-h-screen gap-[20dvh]">
-      <section class="flex justify-between items-center px-8 mt-16 gap-6">
+    <div class=" flex flex-col bg-violet-950 degradsombre min-h-screen gap-[20dvh] pb-32 relative">
+      <section class="grid grid-cols-[1fr_85px] items-center px-[13dvw] mt-16 gap-6">
 
         <h4 class="text-gray-50 z-10">Salut <br> {{ currentUser?.name }},</h4>
 
-        <IconProfil v-bind="currentUser" class=" w-[82px] h-[89px] " />
-        <img src="/public/img/etoiles/etoiles-homereves.svg" alt="pattern d'étoiles et nuages"
-          class="absolute inset-0 z-0 w-full">
+        <IconProfil v-bind="currentUser" class=" w-[82px] h-[89px] z-10" />
+        <img src="/img/etoiles/etoiles-homereves.svg" alt="pattern d'étoiles et nuages"
+          class="absolute inset-0 z-0 max-h-full w-full object-cover">
       </section>
 
       <div class="flex flex-col items-center text-center z-10 ">
       <section class="flex flex-col items-center gap-4">
-        <img src="/public/img/mascotte/mascotte-base.svg" alt="image de onyx">
+        <img src="/img/mascotte/mascotte-base.svg" alt="image de onyx">
         <h4 class="text-gray-50 mb-10">De quoi as-tu rêver ? </h4>
       </section>
       <div>
