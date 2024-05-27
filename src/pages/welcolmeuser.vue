@@ -29,7 +29,7 @@ onMounted(async () => {
 
         <h4 class="text-gray-50 z-10">Salut <br> {{ currentUser?.name }},</h4>
 
-        <IconProfil v-bind="currentUser" class=" w-[82px] h-[86px] " />
+        <IconProfil v-bind="currentUser" class=" w-[82px] h-[89px] " />
         <img src="/public/img/etoiles/etoiles-homereves.svg" alt="pattern d'étoiles et nuages"
           class="absolute inset-0 z-0 w-full">
       </section>

@@ -85,6 +85,7 @@ const doCreateAccount = async () => {
       "passwordConfirm": password.value,
       "name": fullName.value,
       "Abonnement": "free",
+      "Avatar": selectedImageIndex.value,
     };
 
     const record = await pb.collection('users').create(data);

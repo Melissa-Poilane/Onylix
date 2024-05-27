@@ -50,13 +50,13 @@ onMounted(() => {
     });
   });
 
-  pb.authStore.onChange(() => {
+ 
+});
+
+pb.authStore.onChange(() => {
     !pb.authStore.isValid && router.replace('/connexion');
     currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
-});
-
-
 
 
 </script>
@@ -67,7 +67,7 @@ onMounted(() => {
     <div class="tabbar fixed bottom-0 w-full h-32 z-50">
       <ul class=" absolute bottom-0 w-full h-[70px] bg-zinc-900 justify-between px-7 flex items-center">
         <li class="tab-item">
-          <RouterLink to="/">
+          <RouterLink to="/reves">
             <IconHome />
           </RouterLink>
         </li>
@@ -78,7 +78,7 @@ onMounted(() => {
         </li>
         <li class="tab-item" >
           <RouterLink to="/profil">
-            <IconProfil v-bind="currentUser" class=" w-[42.91px] h-[45px]" />
+            <IconProfil v-bind="currentUser" class=" w-[43px] h-[46.5px]" />
           </RouterLink>
         </li>
       </ul>

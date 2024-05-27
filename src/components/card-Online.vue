@@ -10,16 +10,16 @@ interface ComponentProps {
   user: UsersResponse;
 }
 
-const props = defineProps<ComponentProps>();
+defineProps<ComponentProps>();
 
-const reves: RevesResponse = props.reves;
-const user: UsersResponse = props.user;
+// const reves: RevesResponse = props.reves;
+// const user: UsersResponse = props.user;
 
 </script>
 <template>
     <article class="flex">
         
-        <IconProfil v-bind="currentUser" class=" w-[80px] h-[86px]" />
+        <IconProfil v-bind="user" class=" w-[80px] h-[86px]" />
         <div class="flex flex-col">
             <div class="flex">
                 <p>{{ user.name }}</p>

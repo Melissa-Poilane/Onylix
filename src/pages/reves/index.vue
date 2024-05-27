@@ -17,16 +17,18 @@ onMounted(async () => {
   }, true)
 
 });
-
-
 const doLogout = () => {
   pb.authStore.clear();
   currentUser.value = null;
   router.replace('/connexion');
 };
 
-import { Reves } from '@/data'
-
+import { allDreamUser, allUser} from '@/backend';
+const Reves = await allDreamUser()
+const Users = await allUser()
+console.log(Reves)
+console.log(Users)
+console.log(Reves[0].expand.users.Avatar)
 </script>
 
 <template>
@@ -36,31 +38,30 @@ import { Reves } from '@/data'
       <div class="flex justify-between">
         <section class="flex flex-col">
           <p>Salut {{ currentUser?.name }},</p>
-          <h1 class="text-center text-3xl">RÃªvons ensemble</h1>
+          <h1 class="text-center text-3xl">Rêvons ensemble</h1>
           <button type="button" @click="doLogout"
             class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Logout</button>
         </section>
-        <IconProfil :width="82" :height="86" :urlImage="Avatar"  />
       </div>
       <div class="flex flex-col gap-4">
-        <div v-for="reves in Reves" v-bind="reves" :key="reves.id">
+        <div v-for="reve in Reves" v-bind="reve" :key="reve.id">
           <RouterLink :to="{
             name: '/reves/[id]',
-            params: { id: reves.id }
+            params: { id: reve.id }
           }" class="flex flex-col gap-4">
 
             <article class="flex">
-
-              <IconProfil :imgPath="Avatar" imgAlt="imgAlt" />
+              
+              <IconProfil :Avatar="reve.expand.users.Avatar" class=" w-[43px] h-[46.5px]" />
               <div class="flex flex-col">
                 <div class="flex">
-                  <p>{{ name }}</p>
+                  <p>{{reve.expand.users.name}}</p>
                   <img src="" alt="type d'abonnement">
                 </div>
-                <p class="flex text-[7px] text-zinc-400">{{ reves.Date }}</p>
+                <p class="flex text-[7px] text-zinc-400">{{ reve.Date }}</p>
                 <div class="flex flex-col relative">
-                  <h4>{{ reves.Titre }}</h4>
-                  <p>{{ reves.Extrait_de_description }}</p>
+                  <h4>{{ reve.Titre }}</h4>
+                  <p>{{ reve.Extrait_de_description }}</p>
                   <p class="absolute bottom-0 right-0 text-violet-300 p-1 bg-violet-900">...voir plus</p>
                 </div>
               </div>

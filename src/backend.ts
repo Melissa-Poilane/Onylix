@@ -1,13 +1,18 @@
 import PocketBase from 'pocketbase'
-import { Collections, type RevesResponse } from './pocketbase-types'
+import { Collections, type RevesResponse, type TypedPocketBase, type UsersResponse } from './pocketbase-types'
 
-export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE)
+export const pb = new PocketBase(import.meta.env.VITE_URL_POCKETBASE) as TypedPocketBase
 
 
 // liste de toutes les reves online avec les informations qui correspondent `a l’user qui les a posté.
 export async function allDreamUser() { 
   return await pb.collection(Collections.Reves).getFullList<RevesResponse>({
     expand: 'users', filter: 'online = true'});
+}
+
+// liste de touts les uers
+export async function allUser() { 
+  return await pb.collection(Collections.Users).getFullList<UsersResponse>();
 }
 
 //Avoir les données d'un user en pasaant son ID en parapmètre

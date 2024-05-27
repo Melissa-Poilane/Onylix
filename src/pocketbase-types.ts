@@ -73,9 +73,19 @@ export enum UsersAbonnementOptions {
 	"premium" = "premium",
 	"premium +" = "premium +",
 }
+
+export enum UsersAvatarOptions {
+	"biche.webp" = "biche.webp",
+	"chat.webp" = "chat.webp",
+	"corbeau.webp" = "corbeau.webp",
+	"hibou.webp" = "hibou.webp",
+	"panda.webp" = "panda.webp",
+	"tigre.webp" = "tigre.webp",
+}
 export type UsersRecord = {
 	Abonnement?: UsersAbonnementOptions
-	Avatar?: string
+	Avaatar?: string
+	Avatar?: UsersAvatarOptions
 	name: string
 }
 

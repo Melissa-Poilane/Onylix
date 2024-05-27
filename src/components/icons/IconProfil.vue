@@ -1,15 +1,10 @@
 <script setup lang="ts">
 import type { UsersResponse } from '@/pocketbase-types'
-import { pb } from '@/backend';
 const props = defineProps<UsersResponse<any>>() 
-  const urlImage = pb.getFileUrl(props, props.Avatar)
-
-  
+const urlImage = `/avatars/${props.Avatar}` 
 </script>
 
 <template>
-
-
 <div class="relative bg-white clip-path-custom" >
   <img :src="urlImage" alt="Photo de profil" class="absolute inset-0 object-cover pathed">
 </div>
