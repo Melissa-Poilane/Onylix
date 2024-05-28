@@ -39,8 +39,9 @@ const reveid = await getDreamByID(route.params.id)
         <h1 class="col-start-1 col-span-2 pb-3">{{ reveid.Titre }}</h1>
       </div>
 
-      <div class="bg-violet-900 p-5 rounded-tl-[50px] relative rounded-top-perso">
+      <div class="bg-violet-900 p-6 rounded-tl-[50px] relative min-h-[65dvh] ">
       <p>{{ reveid.Description }}</p>  
+      <img src="/img/corner-top-droite.svg" alt="illustration de fond" class="absolute -top-11 right-0">
       </div>  
       </div>
     <TabBar />

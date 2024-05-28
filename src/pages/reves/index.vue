@@ -60,7 +60,7 @@ console.log(Reves[0].expand.users.Avatar)
                 </div>
                 <p class="flex text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
                 <div class="flex flex-col relative gap-[10px]">
-                  <h4>{{ reve.Titre }}</h4>
+                  <h4 class="text-gray-50">{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>
                   <p class="absolute -bottom-1 right-0 text-violet-300 p-1 bg-violet-900">...voir plus</p>
                 </div>

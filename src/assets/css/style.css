@@ -7,7 +7,7 @@ h1, h3, h4, small, .h5 {
     @apply font-NanamiRegular;
 }
 
-h2, h5 { 
+h2, h5, h6 { 
     @apply font-NanamiBold;
 }
 
@@ -29,6 +29,9 @@ h2, h5 {
 
     h5, .h5 {
         @apply text-base;
+    }
+    h6 {
+        @apply text-[14px];
     }
 
     body {
@@ -98,17 +101,6 @@ input[type="checkbox"]:checked::before {
 
 
 .degradsombre {
-    @apply bg-gradient-to-b from-[#361271] to-violet-900;
+    @apply bg-gradient-to-b from-[#361271] to-violet-900 ;
 }
-.rounded-top-perso::after {
-    content: "";
-    position: absolute;
-    top: -10px;
-    right: 0;
-    width: 5%;
-    height: 50px;
-    border-top-left-radius: 50%;
-    border-top-right-radius: 50%;
-    @apply bg-violet-900;
-  }
 }
