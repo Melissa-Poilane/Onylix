@@ -17,24 +17,6 @@ export async function getUserByID(id) {
     return userbyid ;
 }
 
-
-//tous les reves postée par un user en donnant son pseudo en parametre.
-//PASBON
-export async function allDreamByUserName(name) {
-    const dreamUsername = await pb.collection('reves').getFullList(
-        { filter: `users.id = '${name}'` && 'online = true',
-            expand: 'users' });
-    return dreamUsername;
-}
-
-//la liste de toutes les reves de l'utilisateur qui est connecté
-//PASBON
-export async function allDreamConnectedUser() {
-    const dreamConnectedUser = await pb.collection('reves').getFullList(
-        { expand: 'users' });
-    return dreamConnectedUser;
-}
-
 //tous les reves publics avec les infos user par ordre croissant de leur date de cr´eation dans la base de donn´ees
 export async function allDreamUserSort() { 
     const fulllistsorted = await pb.collection('reves').getFullList(
@@ -82,4 +64,19 @@ export function truncateDescription(description, length) {
     } else {
         return description;
     }
+}
+
+//tous les reves postée par un user en donnant son pseudo en parametre.
+export async function allDreamByUserName(name) {
+    const dreamUsername = await pb.collection('reves').getFullList(
+        { filter: `users.username = "${name}" && online = True`,
+            expand: 'users' });
+    return dreamUsername;
+}
+
+//la liste de toutes les reves de l'utilisateur 
+export async function allDreamConnectedUser(id) {
+    const dreamConnectedUser = await pb.collection('reves').getFullList(
+        { filter: `users.id = '${id}'`, expand: 'users' });
+    return dreamConnectedUser;
 }

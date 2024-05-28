@@ -275,8 +275,8 @@ const isSelected = (image) => {
 
       <!-- ECRAN D'INSCRIPTION 2 -->
       <div v-if="step2">
-        <div class="flex flex-col justify-between items-center min-h-screen">
-          <div class="px-10 w-full">
+        <div class="flex flex-col justify-between items-center min-h-screen mx-10">
+          <div class="w-full">
             <div class="relative text-center pt-28 pb-14">
               <h4 class="text-white">Comment devons nous t’appeler?</h4>
               <p>Choisi un nom de rêveur unique</p>
@@ -302,13 +302,13 @@ const isSelected = (image) => {
               />
             </div>
           </div>
-          <div class="flex flex-col items-center mb-5 relative">
+          <div class="mb-5 w-full relative">
             <img
               src="/img/papillon2.svg"
               alt="image de papillon"
               class="absolute bottom-5 left-0"
             />
-            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 w-screen">
+            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
               <button
                 @click="
                   step2 = false,
@@ -321,7 +321,7 @@ const isSelected = (image) => {
             <img
               src="/img/suivi-inscription2.svg"
               alt="deuxieme étape de l'inscription"
-              class="max-w-14"
+              class="max-w-14 absolute -bottom-2 left-[45.5%]"
             />
           </div>
         </div>
@@ -329,7 +329,7 @@ const isSelected = (image) => {
 
       <!-- ECRAN D'INSCRIPTION 3 -->
       <div v-if="step3">
-        <div class="flex flex-col justify-between items-center min-h-screen">
+        <div class="flex flex-col justify-between items-center min-h-screen mx-10">
           <div class="text-center">
             <img src="/img/choixavatar.svg" alt="illustration avatar" />
             <h1 class="text-white">Choisi ton avatar</h1>
@@ -351,15 +351,15 @@ const isSelected = (image) => {
       </div>
           </div>
 
-          <div class="flex flex-col items-center mb-5 ">
+          <div class="w-full mb-5 ">
            
-            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 w-screen">
+            <div class="py-3 bg-gray-50 rounded-full text-center mb-2">
               <button @click="doCreateAccount"><h4>Continuer</h4></button>
             </div>
             <img
               src="/img/suivi-inscription3.svg"
               alt="derniere étape de l'inscription"
-              class="max-w-14"
+              class="max-w-14 absolute bottom-2 left-[45.5%]"
             />
           </div>
         </div>

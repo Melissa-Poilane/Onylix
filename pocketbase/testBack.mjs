@@ -24,23 +24,6 @@ try {
 console.error(e) ;
 }
 
-//PASBON
-try {
-    const dreamUsername = await allDreamByUserName("users86532");
-    console.log(JSON.stringify(dreamUsername, null, 2));
-} catch (e) {
-    console.error(e);
-
-}
-
-//PASBON
-try {
-    const dreamConnectedUser = await allDreamConnectedUser();
-    console.log(JSON.stringify(dreamConnectedUser, null, 2));
-} catch (e) {
-    console.error(e);
-}
-
 try { 
     const fulllistsorted = await allDreamUserSort();
     console.log(JSON.stringify(fulllistsorted, null, 2));
@@ -98,7 +81,7 @@ try {
     console.log(JSON.stringify(userUpdated, null, 2));
 } catch (e) {
     console.error(e);
-}*/
+}
 
 try {
     const dream = {
@@ -113,6 +96,21 @@ try {
     dream.Extrait_de_description = truncateDescription(dream.Description, 100);
     const dreamCreated = await updateDream('pzrksqr7gyrclzg',dream);
     console.log(JSON.stringify(dreamCreated, null, 2));
+} catch (e) {
+    console.error(e);
+}
+
+try {
+    const dreamUsername = await allDreamByUserName("user_aca6aefb");
+    console.log(JSON.stringify(dreamUsername, null, 2));
+} catch (e) {
+    console.error(e);
+
+}
+*/
+try {
+    const dreamConnectedUser = await allDreamConnectedUser('ap8bvt096wbrtu5');
+    console.log(JSON.stringify(dreamConnectedUser, null, 2));
 } catch (e) {
     console.error(e);
 }

@@ -10,6 +10,11 @@ export async function allDreamUser() {
     expand: 'users', filter: 'online = true'});
 }
 
+//une fonction qui recupere un reve par id avec les infos utilisateur
+export async function getDreamByID(id) {
+  return await pb.collection(Collections.Reves).getOne(id, {expand: 'users'});
+}
+
 // liste de touts les uers
 export async function allUser() { 
   return await pb.collection(Collections.Users).getFullList<UsersResponse>();
@@ -18,24 +23,6 @@ export async function allUser() {
 //Avoir les données d'un user en pasaant son ID en parapmètre
 export async function getUserByID(id) {
   return await pb.collection(Collections.Users).getOne(id);
-}
-
-
-//tous les reves postée par un user en donnant son pseudo en parametre.
-//PASBON
-export async function allDreamByUserName(name) {
-    const dreamUsername = await pb.collection('reves').getFullList(
-        { filter: `users.id = '${name}'` && 'online = true',
-            expand: 'users' });
-    return dreamUsername;
-}
-
-//la liste de toutes les reves de l'utilisateur qui est connecté
-//PASBON
-export async function allDreamConnectedUser() {
-    const dreamConnectedUser = await pb.collection('reves').getFullList(
-        { expand: 'users' });
-    return dreamConnectedUser;
 }
 
 //tous les reves publics avec les infos user par ordre croissant de leur date de cr´eation dans la base de donn´ees
@@ -110,4 +97,17 @@ export function truncateDescription(description, length) {
     } else {
         return description;
     }
+}
+
+//tous les reves postée par un user en donnant son pseudo en parametre.
+export async function allDreamByUserName(id) {
+  return await pb.collection('reves').getFullList(
+      { filter: `users.id = '${id}' && online = True`,
+          expand: 'users' });
+}
+
+//la liste de toutes les reves de l'utilisateur 
+export async function allDreamConnectedUser(id) {
+  return await pb.collection('reves').getFullList(
+      { filter: `users.id = '${id}'`, expand: 'users' });
 }

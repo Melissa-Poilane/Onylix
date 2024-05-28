@@ -6,7 +6,7 @@ import TabBar from '@/components/TabBar.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
 import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
-
+import { formatDate } from '@/helper';
 
 const currentUser = ref()
 const router = useRouter();
@@ -32,7 +32,7 @@ console.log(Reves[0].expand.users.Avatar)
 <template>
   <div v-if="currentUser">
 
-    <div class="flex flex-col gap-4 bg-violet-950 min-h-screen pb-32">
+    <div class="flex flex-col gap-4 bg-violet-950 min-h-screen ">
       <div class="grid grid-cols-[1fr_90px] items-center px-[4dvw] pt-16 pb-7 bg-violet-900 rounded-b-3xl relative">
         <section class="flex flex-col">
           <p>Salut {{ currentUser?.name }},</p>
@@ -58,7 +58,7 @@ console.log(Reves[0].expand.users.Avatar)
                   <p>{{ reve.expand.users.name }}</p>
                   <IconAbonnement :Abonnement="reve.expand.users.Abonnement" />
                 </div>
-                <p class="flex text-[7px] text-zinc-400">{{ reve.Date }}</p>
+                <p class="flex text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
                 <div class="flex flex-col relative gap-[10px]">
                   <h4>{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>

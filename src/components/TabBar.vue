@@ -4,54 +4,13 @@ import IconHome from './icons/IconHome.vue'
 import IconJournal from './icons/IconJournal.vue'
 import IconProfil from './icons/IconProfil.vue'
 
-const clearClass = (node: HTMLElement, className: string) => {
-  node.classList.remove(className);
-};
-
-const setClass = (node: HTMLElement, className: string) => {
-  node.classList.add(className);
-};
-
-import { onMounted } from 'vue';
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 const currentUser = ref()
 const router = useRouter();
 import { pb } from '@/backend'
 
-onMounted(() => {
-  const uls = document.querySelectorAll("ul");
-  uls.forEach((ul) => {
-    const resetClass = (ul.parentNode as HTMLElement)?.getAttribute("class");
-    const lis = ul.querySelectorAll("li");
 
-    lis.forEach((li) => {
-      li.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const target = e.currentTarget;
-
-        if (
-          (target as HTMLElement).classList.contains("active") ||
-          (target as HTMLElement).classList.contains("follow")
-        ) {
-          return;
-        }
-
-        (ul.parentNode as HTMLElement).setAttribute(
-          "class",
-          `${resetClass} ${(target as HTMLElement)?.getAttribute("data-where")}-style`
-        );
-
-        lis.forEach((item) => clearClass(item, "active"));
-
-        setClass(target as HTMLElement, "active");
-      });
-    });
-  });
-
- 
-});
 
 pb.authStore.onChange(() => {
     !pb.authStore.isValid && router.replace('/connexion');

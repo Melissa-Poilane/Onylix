@@ -12,7 +12,7 @@ h2, h5 {
 }
 
     h1 {
-        @apply text-3xl;
+        @apply text-3xl font-normal;
     }
 
     h2 {
@@ -32,7 +32,7 @@ h2, h5 {
     }
 
     body {
-        @apply text-lg font-DelSemiLight text-gray-50 min-h-screen bg-violet-900;
+        @apply text-lg font-DelSemiLight text-gray-50 min-h-screen bg-violet-950;
     }
 
     .BodyS {
@@ -65,19 +65,19 @@ h2, h5 {
     .tab-item {
         @apply flex justify-center items-center transition-all ease-in-out duration-300 bg-zinc-900 w-24 h-12 relative rounded-t-full;
     }
-    .tabbar .active {
-        @apply h-[90px] -top-4;
+    .tabbar .router-link-active  {
+        @apply h-[115px] -top-4 bg-zinc-900 p-5 rounded-t-full;
     }
-      
-    .tabbar .active:before,
-    .tabbar .active:after {
+    
+    .tabbar .router-link-active:before,
+    .tabbar .router-link-active:after {
         @apply content-[''] absolute w-[30px] h-[25px] border-b-4 border-zinc-900 top-[5px];
     }
       
-    .tabbar .active:before {
+    .tabbar .router-link-active:before {
         @apply rounded-br-[60%] -left-[18.5px];
     }
-    .tabbar .active:after {
+    .tabbar .router-link-active:after {
         border-bottom-left-radius: 60%;
         right: -18.5px;
     }
@@ -100,5 +100,15 @@ input[type="checkbox"]:checked::before {
 .degradsombre {
     @apply bg-gradient-to-b from-[#361271] to-violet-900;
 }
-
+.rounded-top-perso::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    right: 0;
+    width: 5%;
+    height: 50px;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    @apply bg-violet-900;
+  }
 }
