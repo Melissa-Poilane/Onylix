@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import TabBar from '@/components/TabBar.vue';
-
+import IconModif from '@/components/icons/IconModif.vue';
+import IconProfil from '@/components/icons/IconProfil.vue';
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 
@@ -16,18 +17,19 @@ onMounted(async () => {
 
 });
 
-const doLogout = () => {
-  pb.authStore.clear();
-  currentUser.value = null;
-  router.replace('/connexion');
-};
+
 </script>
 
 <template>
-    <div class="p-8 text-center ">
-    <h1 class="mt-14">page profil</h1>
-    <button type="button" @click="doLogout"
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Logout</button>
-</div>
-    <TabBar />
+  <div v-if="currentUser" >
+    <div class="flex flex-col items-center relative mt-16">
+    <div class="relative w-[115px] mt-8">
+      <IconProfil v-bind="currentUser" class=" w-[98px] h-[105px] z-[2]" />
+     <RouterLink to="/modifier-avatar" class="absolute right-0 bottom-0 z-10" >
+      <IconModif  />
+     </RouterLink>
+   </div>
+   <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 w-full object-cover">
+  </div>
+    <TabBar /></div>
 </template>

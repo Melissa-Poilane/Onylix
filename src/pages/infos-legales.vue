@@ -9,10 +9,11 @@ const goBack = () => {
 </script>
 
 <template>
-    <div class="sticky top-0">
+    <h2 id="mentions" class="absolute top-0">Onylix</h2>
+    <div  class="sticky top-0">
         <div class="relative flex flex-col degradsombre pt-28 px-6">
-        <button @click="goBack" class="absolute top-10">
-        <img src="/public/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        <button @click="goBack" class="absolute top-10 z-20">
+        <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
         </button>
         <section class="z-10 ">
             
@@ -33,11 +34,11 @@ const goBack = () => {
         
     </section>
     
-        <img src="/img/etoile-nuage-legal.svg" alt="illustration de fond" class=" absolute inset-0 top-10 z-0 max-h-full w-full object-cover">
+        <img src="/img/etoile-nuage-legal.svg" alt="illustration de fond" class=" absolute inset-0  pt-10 z-0 max-h-full w-full object-cover degradsombre">
     </div></div>
     
-    <div class="bg-violet-700 flex flex-col px-6 gap-14">
-        <section id="mentions" class="flex flex-col gap-4">
+    <div  class="bg-violet-700 flex flex-col px-6 gap-14">
+        <section class="flex flex-col gap-4">
         <h5 >MENTIONS LÉGALES</h5>
         <p>Éditeur de l'application Onylix : <strong>Onylix SARL</strong>
             <br>

@@ -20,9 +20,9 @@ onMounted(async () => {
 });
 
 
-import { allDreamUser, allUser } from '@/backend';
+import { allDreamUserSort, allUser } from '@/backend';
 import FooterPage from '@/components/FooterPage.vue';
-const Reves = await allDreamUser()
+const Reves = await allDreamUserSort()
 const Users = await allUser()
 console.log(Reves)
 console.log(Users)

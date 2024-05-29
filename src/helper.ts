@@ -16,3 +16,7 @@ export function formatDate(dateString: string): string {
   
     return formattedDate
   }
+
+  export function getElementById (id: string) {
+    return getElementById(id)
+  }

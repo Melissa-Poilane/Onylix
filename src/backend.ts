@@ -99,11 +99,12 @@ export function truncateDescription(description, length) {
     }
 }
 
-//tous les reves postée par un user en donnant son pseudo en parametre.
+//tous les reves postée par un user en donnant son id en parametre trié par date de création croissent
 export async function allDreamByUserName(id) {
   return await pb.collection('reves').getFullList(
       { filter: `users.id = '${id}' && online = True`,
-          expand: 'users' });
+          expand: 'users', 
+          sort: 'created' });
 }
 
 //la liste de toutes les reves de l'utilisateur 
