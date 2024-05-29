@@ -69,9 +69,9 @@ export type RevesRecord = {
 }
 
 export enum UsersAbonnementOptions {
-	"free" = "free",
-	"premium" = "premium",
-	"premium +" = "premium +",
+	"free.svg" = "free.svg",
+	"premium.svg" = "premium.svg",
+	"premium+.svg" = "premium+.svg",
 }
 
 export enum UsersAvatarOptions {
@@ -84,8 +84,8 @@ export enum UsersAvatarOptions {
 }
 export type UsersRecord = {
 	Abonnement?: UsersAbonnementOptions
-	Avaatar?: string
 	Avatar?: UsersAvatarOptions
+	biographie?: string
 	name: string
 }
 

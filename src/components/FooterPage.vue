@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
-
+const props = defineProps<{
+  classfooter?: string;
+}>()
 </script>
 
 <template>
@@ -10,7 +12,8 @@ import { RouterLink } from 'vue-router';
     <RouterLink to="/infos-legales" class="z-10">
       <p>Informations légales</p>
     </RouterLink>
-    <img src="/img/nuagesfooter.svg" alt="illustration de nuages" class="sticky bottom-20 w-full object-cover z-0">
+    <img src="/img/nuagesfooter.svg" alt="illustration de nuages" class="sticky bottom-20 w-full object-cover z-0" :class="classfooter">
+    
    </div>
   </footer>
 </template>

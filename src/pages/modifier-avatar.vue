@@ -22,7 +22,6 @@ const isSelected = (image) => {
 <template>
   <body class="bg-violet-900">
     <div>
-      <!-- ECRAN D'INSCRIPTION 3 -->
       <div>
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">
           <div class="text-center">

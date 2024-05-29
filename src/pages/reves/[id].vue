@@ -26,7 +26,7 @@ const reveid = await getDreamByID(route.params.id)
 <template>
   <div v-if="reveid">
     <div class="flex flex-col bg-violet-950 min-h-screen relative ml-4">
-        <img src="/img/papilliongradient.svg" alt="image de papillons" class="absolute inset-0 z-0 max-h-full w-full object-cover">
+        <img src="/img/papilliongradient.svg" alt="image de papillons" class="absolute inset-0 z-0 max-h-full w-full object-cover opacity-50 ">
        
         <RouterLink :to="{
             name: '/reveurs/[id]',

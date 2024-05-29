@@ -71,6 +71,9 @@ h2, h5, h6 {
     .tabbar .router-link-active  {
         @apply h-[115px] -top-4 bg-zinc-900 p-5 rounded-t-full;
     }
+    .router-link-active div {
+        @apply bg-violet-500;
+    }
     
     .tabbar .router-link-active:before,
     .tabbar .router-link-active:after {

@@ -7,24 +7,23 @@ import IconProfil from '@/components/icons/IconProfil.vue';
 import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
+import { pb, allDreamConnectedUser } from '@/backend'
+import FooterPage from '@/components/FooterPage.vue';
 
 const currentUser = ref()
 const router = useRouter();
-import { pb } from '@/backend'
+const Reves = ref([]);
+
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.authStore.onChange(async () => {
+    if (!pb.authStore.isValid) {
+      router.replace('/connexion');
+    } else {
+      currentUser.value = pb.authStore.model;
+      Reves.value = await allDreamConnectedUser(currentUser.value.id);
+    }
   }, true)
-
 });
-
-
-import { allDreamConnectedUser } from '@/backend';
-import FooterPage from '@/components/FooterPage.vue';
-const Reves = await allDreamConnectedUser('ap8bvt096wbrtu5')
-console.log(Reves)
-
 </script>
 
 <template>
@@ -32,14 +31,14 @@ console.log(Reves)
 <div>
 
     <section class="relative grid grid-cols-[1fr_100px] pl-10 pr-5 items-baseline pb-11 pt-14">
-      <h3 class="z-10">Journal {{ currentUser?.id }} </h3>
+      <h3 class="z-10">Journal </h3>
 <img src="/img/etoiles/etoilesjournql.svg" alt="illustrations d'étoiles" class="absolute inset-14 left-[10dvw] z-0 opacity-60">
 <IconProfil v-bind="currentUser" class=" w-[92px] h-[99px] z-10" />
     </section>
 
 
       <div class="flex flex-col gap-3 mx-1">
-        <div v-for="reve in Reves" v-bind="reve" :key="reve.id" class="bg-violet-900 px-4 py-5 rounded-3xl">
+        <div v-for="reve in Reves" :key="reve" class="bg-violet-900 px-4 py-5 rounded-3xl">
           <RouterLink :to="{
             name: '/reves/[id]',
             params: { id: reve.id }

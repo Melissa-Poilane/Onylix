@@ -37,7 +37,7 @@ pb.authStore.onChange(() => {
         </li>
         <li class="tab-item" >
           <RouterLink to="/profil">
-            <IconProfil v-bind="currentUser" class=" w-[43px] h-[46.5px]" />
+            <IconProfil v-bind="currentUser" class=" w-[44px] h-[47.5px]" />
           </RouterLink>
         </li>
       </ul>

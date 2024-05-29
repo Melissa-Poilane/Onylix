@@ -88,8 +88,9 @@ const doCreateAccount = async () => {
       "password": password.value,
       "passwordConfirm": password.value,
       "name": fullName.value,
-      "Abonnement": "free",
+      "Abonnement": "free.svg",
       "Avatar": selectedImageIndex.value,
+      "biographie": "Je suis un rêveur",
     };
 
     const record = await pb.collection('users').create(data);
@@ -110,6 +111,7 @@ const selectImage = (image) => {
 const isSelected = (image) => {
   return selectedImageIndex.value === image;
 }
+
 </script>
 
 <template>
