@@ -9,6 +9,7 @@ import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
 import { pb, allDreamConnectedUser } from '@/backend'
 import FooterPage from '@/components/FooterPage.vue';
+import IconPlus from '@/components/icons/IconPlus.vue';
 
 const currentUser = ref()
 const router = useRouter();
@@ -28,17 +29,19 @@ onMounted(async () => {
 
 <template>
   <div v-if="currentUser">
+    <div class="flex flex-col justify-between min-h-screen">
 <div>
+      <section class="relative grid grid-cols-[1fr_100px] pl-10 pr-5 items-baseline pb-11 pt-14">
+        <h3 class="z-10">Journal </h3>
+        <img src="/img/etoiles/etoilesjournql.svg" alt="illustrations d'étoiles"
+          class="absolute inset-14 left-[10dvw] z-0 opacity-60">
+        <IconProfil v-bind="currentUser" class=" w-[92px] h-[99px] z-10" />
+      </section>
 
-    <section class="relative grid grid-cols-[1fr_100px] pl-10 pr-5 items-baseline pb-11 pt-14">
-      <h3 class="z-10">Journal </h3>
-<img src="/img/etoiles/etoilesjournql.svg" alt="illustrations d'étoiles" class="absolute inset-14 left-[10dvw] z-0 opacity-60">
-<IconProfil v-bind="currentUser" class=" w-[92px] h-[99px] z-10" />
-    </section>
 
-
-      <div class="flex flex-col gap-3 mx-1">
-        <div v-for="reve in Reves" :key="reve" class="bg-violet-900 px-4 py-5 rounded-3xl">
+      <div class="flex flex-col gap-3 bg-violet-900 relative">
+        <h2 v-if="Reves.length === 0">Vous n'avez pas encore écrit de rêve.</h2>
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-5 rounded-3xl">
           <RouterLink :to="{
             name: '/reves/[id]',
             params: { id: reve.id }
@@ -56,17 +59,19 @@ onMounted(async () => {
                 <div class="flex flex-col relative gap-[10px]">
                   <h4 class="text-gray-50">{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>
-                  <p class="absolute -bottom-1 right-0 text-violet-300 p-1 bg-violet-900">...voir plus</p>
+                  <p class="absolute -bottom-1 right-0 text-violet-300 p-1 bg-violet-700">...voir plus</p>
                 </div>
               </div>
             </article>
 
           </RouterLink>
         </div>
+        <img src="/img/corner-top-droite.svg" alt="illustration de fond" class="absolute -top-11 left-0 transform scale-x-[-1]">
       </div>
-    <FooterPage class="mt-10" />
-  </div>
-    
-    <TabBar />
+    </div>
+      <FooterPage class="mt-10" />
+    </div>
+    <IconPlus class="fixed bottom-24 right-10 " />
+    <TabBar :zindex="z - 30" />
   </div>
 </template>
