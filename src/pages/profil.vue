@@ -4,28 +4,35 @@ import IconModif from '@/components/icons/IconModif.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
+import IconSupprimer from '@/components/icons/IconSupprimer.vue';
+import FooterPage from '@/components/FooterPage.vue';
+
+import { RouterLink } from 'vue-router';
+import { formatDate } from '@/helper';
+import { pb, allDreamByUserName} from '@/backend'
+import IconInterpreter from '@/components/icons/IconInterpreter.vue';
 
 const currentUser = ref()
 const router = useRouter();
+const Reves = ref([]);
 
-import { pb } from '@/backend'
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.authStore.onChange(async () => {
+    if (!pb.authStore.isValid) {
+      router.replace('/connexion');
+    } else {
+      currentUser.value = pb.authStore.model;
+      Reves.value = await allDreamByUserName(currentUser.value.id);
+    }
   }, true)
-
 });
 
-const doLogout = () => {
-  pb.authStore.clear();
-  currentUser.value = null;
-  router.replace('/connexion');
-};
 
-import {updateUser} from '@/backend'
+import {updateUser, updateDream} from '@/backend'
+import IconParams from '@/components/icons/IconParams.vue';
 const editing = ref(false);
     const newBio = ref('');
+    
 const saveBio = async () => {
   try {
   const data = { 
@@ -41,15 +48,28 @@ const saveBio = async () => {
 }
  return { editing, newBio, saveBio }
 };
+
+const updatedream = async (id) => {
+  try {
+    const dream = {
+      "online": false
+    };
+    await updateDream(id, dream);
+    location.reload();
+  } catch (error) {
+    alert('Une erreur est survenue :/');
+  }
+  return { updatedream }
+};
 </script>
 
 <template>
   <div v-if="currentUser" >
     <div class="flex flex-col items-center relative mt-16 gap-4 ">
    
-   <button class="absolute left-6 z-20">
-   <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
-   </button>
+   <RouterLink to="/parametres" class="absolute right-6 z-20">
+   <IconParams />
+   </RouterLink>
 
    <section class="flex flex-col items-center justify-center text-center px-5 my-6 w-full">
     <div class="relative w-[110px] mt-8">
@@ -60,19 +80,55 @@ const saveBio = async () => {
 </div>
  <h4 class="text-gray-50">{{ currentUser.name }}</h4>
  <div class="relative w-full">
-    <p v-if="!editing" class="mt-2">{{ currentUser.biographie }}</p>
-    <div v-if="editing" >
+    <p v-if="!editing" class="mt-2 flex justify-center items-center gap-2">{{ currentUser.biographie }}
+    <IconModif @click="editing = true"  v-if="!editing" class=" self-end z-40" />
+   </p>
+   <div v-if="editing" >
       <input class="border-none bg-zinc-900 bg-opacity-40 p-4 py-5 z-40 text-center w-full"  type="text"  v-model="newBio" name="biographie" id="biographie" autocomplete="none" placeholder="Ex : J'aime les licornes et les arcs-en-ciel" /> 
       <button @click="saveBio" class="absolute left-[49%] -bottom-6 z-10"><img src="/img/icones/save.svg" alt="sauvegarder"></button>
     </div> 
-    <IconModif @click="editing = true" class="absolute left-[49%] -bottom-6 z-10" v-if="!editing" />
+   
   </div>
 </section>
 
    <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 w-full object-cover">
-   <button type="button" @click="doLogout"
-            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Logout</button>
-  </div>
- 
-    <TabBar /></div>
+  
+  
+ <h4 class="bg-violet-500 py-3 px-12 rounded-full text-gray-50">Rêves publiés</h4>
+   
+    </div> 
+    <div class="bg-violet-900 mx-3 rounded-3xl px-4 py-5 my-3 flex flex-col gap-3">
+      
+     
+        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center ">Vous n'avez pas encore publié de rêves</h4>
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl">
+          
+
+            <article >
+
+                <div class="flex flex-col relative ">
+                  <div class="flex justify-between items-center">
+                    <p class="text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
+                    <div class="flex items-center gap-5">
+                    <IconSupprimer @click="updatedream(reve.id)" />
+                    <RouterLink :to="{
+                  name: '/interpreter/[id]',
+                  params: { id: reve.id }
+                }" >
+                <IconInterpreter/>
+                </RouterLink></div>
+                  </div>
+                  <RouterLink :to="{
+            name: '/journal/[id]',
+            params: { id: reve.id }
+          }" >
+                  <h4 class="text-gray-50">{{ reve.Titre }}</h4>
+                  <p>{{ reve.Extrait_de_description }}</p>
+                  <p class="absolute -bottom-1 right-0 text-violet-300 p-1 bg-violet-700">...voir plus</p>
+               </RouterLink>
+                </div>   
+            </article>
+      </div>
+  
+    </div>    <FooterPage class="mt-10" /><TabBar /></div>
 </template>

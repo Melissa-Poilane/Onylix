@@ -1,6 +1,9 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import PocketBase from 'pocketbase'
 import { profilePictures } from '@/data';
+import { useRouter } from "vue-router";
 
 defineProps<{
   id: number;
@@ -8,8 +11,43 @@ defineProps<{
     imgAlt: string;
 }>()
 
-
+let pb = null
+const currentUser = ref()
+const router = useRouter();
 let selectedImageIndex = ref(null)
+
+onMounted(async () => {
+  pb = new PocketBase('http://127.0.0.1:8090');
+
+  pb.authStore.onChange(() => {
+    currentUser.value = pb.authStore.model
+  }, true)
+
+});
+
+
+
+import { updateUser } from '@/backend'
+const doUpdateuser = async () => {
+  try {
+
+    if (!selectedImageIndex.value) {
+      alert('Vous devez choisir un Avatar');
+      return;
+    }
+
+    const data = {
+      
+      "Avatar": selectedImageIndex.value,
+    };
+
+    await updateUser(currentUser.value.id, data);
+    router.push('/profil')
+   
+  } catch (error) {
+    alert('Une erreur est survenue !');
+  }
+};
 
 const selectImage = (image) => {
   selectedImageIndex.value = image;
@@ -17,12 +55,16 @@ const selectImage = (image) => {
 const isSelected = (image) => {
   return selectedImageIndex.value === image;
 }
+
 </script>
 
 <template>
   <body class="bg-violet-900">
-    <div>
-      <div>
+    <div v-if="currentUser">
+  
+
+      <!-- ECRAN D'INSCRIPTION 3 -->
+      <div >
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">
           <div class="text-center">
             <img src="/img/choixavatar.svg" alt="illustration avatar" />
@@ -47,14 +89,10 @@ const isSelected = (image) => {
 
           <div class="w-full mb-5 ">
            
-            <div class="py-3 bg-gray-50 rounded-full text-center mb-2">
-              <button @click="doCreateAccount"><h4>Continuer</h4></button>
+            <div @click="doUpdateuser" class="py-3 bg-violet-500 rounded-full text-center mb-2 ">
+              <h4 class="text-gray-50">Confirmer</h4>
             </div>
-            <img
-              src="/img/suivi-inscription3.svg"
-              alt="derniere étape de l'inscription"
-              class="max-w-14 absolute bottom-2 left-[45.5%]"
-            />
+           
           </div>
         </div>
       </div>

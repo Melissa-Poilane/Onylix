@@ -4,12 +4,12 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import TabBar from '@/components/TabBar.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
-import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
-import { pb, allDreamConnectedUser } from '@/backend'
+import { pb, allDreamConnectedUser} from '@/backend'
 import FooterPage from '@/components/FooterPage.vue';
 import IconPlus from '@/components/icons/IconPlus.vue';
+import IconInterpreter from '@/components/icons/IconInterpreter.vue';
 
 const currentUser = ref()
 const router = useRouter();
@@ -25,6 +25,9 @@ onMounted(async () => {
     }
   }, true)
 });
+
+
+
 </script>
 
 <template>
@@ -39,39 +42,45 @@ onMounted(async () => {
       </section>
 
 
-      <div class="flex flex-col gap-3 bg-violet-900 relative">
-        <h2 v-if="Reves.length === 0">Vous n'avez pas encore écrit de rêve.</h2>
-        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-5 rounded-3xl">
-          <RouterLink :to="{
-            name: '/reves/[id]',
+      <div class="flex flex-col gap-3 bg-violet-900 relative py-5 px-4 mr-4 rounded-b-3xl rounded-tr-3xl">
+        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center mx-8">Vous n'avez pas encore écrit de rêve !</h4>
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl">
+          
+
+            <article >
+
+                <div class="flex flex-col relative ">
+                  <div class="flex justify-between items-center">
+                    <p class="text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
+                    <RouterLink :to="{
+                  name: '/interpreter/[id]',
+                  params: { id: reve.id }
+                }" >
+                <IconInterpreter/>
+                </RouterLink>
+                  </div>
+                  <RouterLink :to="{
+            name: '/journal/[id]',
             params: { id: reve.id }
-          }" class="flex flex-col gap-4">
-
-            <article class="grid gap-[10px] grid-cols-[30px_1fr]">
-
-              <IconProfil :Avatar="reve.expand.users.Avatar" class=" w-[30px] h-[32.5px]" />
-              <div class="grid grid-rows-[15px_20px] gap-1">
-                <div class="flex gap-1 self-baseline">
-                  <p>{{ reve.expand.users.name }}</p>
-                  <IconAbonnement :Abonnement="reve.expand.users.Abonnement" />
-                </div>
-                <p class="flex text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
-                <div class="flex flex-col relative gap-[10px]">
+          }" >
                   <h4 class="text-gray-50">{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>
                   <p class="absolute -bottom-1 right-0 text-violet-300 p-1 bg-violet-700">...voir plus</p>
+               </RouterLink>
                 </div>
-              </div>
+                
+               
             </article>
 
-          </RouterLink>
         </div>
         <img src="/img/corner-top-droite.svg" alt="illustration de fond" class="absolute -top-11 left-0 transform scale-x-[-1]">
       </div>
     </div>
       <FooterPage class="mt-10" />
     </div>
+    <RouterLink to="/saisir-reve">
     <IconPlus class="fixed bottom-24 right-10 " />
-    <TabBar :zindex="z - 30" />
+    </RouterLink>
+    <TabBar />
   </div>
 </template>
