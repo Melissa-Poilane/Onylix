@@ -11,16 +11,17 @@ defineProps<{
     imgAlt: string;
 }>()
 
-let pb = null
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 const currentUser = ref()
 const router = useRouter();
 let selectedImageIndex = ref(null)
 
 onMounted(async () => {
-  pb = new PocketBase('http://127.0.0.1:8090');
+  
 
-  pb.authStore.onChange(() => {
-    currentUser.value = pb.authStore.model
+  pb.value.authStore.onChange(() => {
+    currentUser.value = pb.value.authStore.model
   }, true)
 
 });

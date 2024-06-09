@@ -1,35 +1,94 @@
 export const profilePictures = [
     {
       id: 'panda.webp',
-      imgpfp: '../public/avatars/panda.webp',
+      imgpfp: '../avatars/panda.webp',
       imgAlt: 'image de panda'
     },
     {
       id: 'hibou.webp',
-      imgpfp: '../public/avatars/hibou.webp',
+      imgpfp: '../avatars/hibou.webp',
       imgAlt: 'image de hibou'
     },
     {
       id: 'corbeau.webp',
-      imgpfp: '../public/avatars/corbeau.webp',
+      imgpfp: '../avatars/corbeau.webp',
       imgAlt: 'image de corbeau'
     },
     {
       id: 'chat.webp',
-      imgpfp: '../public/avatars/chat.webp',
+      imgpfp: '../avatars/chat.webp',
       imgAlt: 'image de chat'
     },
     {
       id: 'tigre.webp',
-      imgpfp: '../public/avatars/tigre.webp',
+      imgpfp: '../avatars/tigre.webp',
       imgAlt: 'image de tigre'
     },
     {
       id: 'biche.webp',
-      imgpfp: '../public/avatars/biche.webp',
+      imgpfp: '../avatars/biche.webp',
       imgAlt: 'image de biche'
     },
     
+  ]
+
+  export const Type_reve = [
+    {
+      id: 'Cauchemar',
+      imgAlt: 'Cauchemar',
+      imgPath: '../Types-reves/Cauchemar.svg'
+    },
+    {
+      id: 'Récurrent',
+      imgAlt: 'Récurrent',
+      imgPath: '../Types-reves/Récurrent.svg'
+    },
+    {
+      id: 'Lucide',
+      imgAlt: 'Lucide', 
+      imgPath: '../Types-reves/Lucide.svg'
+    },
+    {
+      id: 'Rêve',
+      imgAlt: 'Rêve',
+      imgPath: '../Types-reves/Rêve.svg'
+    },
+  ]
+
+  export const Notes = [
+    {
+      id: '1',
+    },
+    {
+      id: '2',
+    },
+    {
+      id: '3',
+    },
+    {
+      id: '4',
+    },
+    {
+      id: '5',
+    }
+  ]
+
+  export const Longeur_reve = [
+    {
+      id: '1',
+    },
+    {
+      id: '2',
+    },
+    {
+      id: '3',
+    },
+    {
+      id: '4',
+    },
+    {
+      id: '5',
+    }
   ]
 
   export const Reves = 

@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router/auto'
 import { onMounted, ref } from 'vue'
-import { pb } from '@/backend'
+
 import { getDreamByID } from '@/backend';
 import FooterPage from '@/components/FooterPage.vue';
-
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
   const route = useRoute('/interpreter/[id]')
   console.log('id :', route.params.id)
   const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.value.authStore.onChange(() => {
+    !pb.value.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
   }, true)
 
 });

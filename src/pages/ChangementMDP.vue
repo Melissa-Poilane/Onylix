@@ -1,20 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import PocketBase from 'pocketbase';
+import {  ref } from 'vue';
+import { RouterLink, useRouter} from 'vue-router';
+import {usePocketBase} from '@/composables/usePocketBase'
 
-let pb = null;
-const currentUser = ref();
+
+const {pb} = usePocketBase()
 const email = ref("");
-
-
-onMounted(async () => {
-  pb = new PocketBase('http://127.0.0.1:8090');
-
-  pb.authStore.onChange(() => {
-    currentUser.value = pb.authStore.model
-  }, true)
-
-});
+const router = useRouter()
 
 
 const doRequest = async () => {
@@ -22,13 +14,14 @@ const doRequest = async () => {
     alert('email is required')
   }
   try {
-   await pb.collection('users').requestPasswordReset(email.value);
+   await pb.value.collection('users').requestPasswordReset(email.value);
     alert('email envoyé')
+
+    router.replace('/connexion')
   } catch (error) {
-    alert(error.message)
+    console.error('Erreur lors de la demande de réinitialisation du mot de passe :', error);
   }
 }
-
 
 </script>
 
@@ -55,10 +48,9 @@ const doRequest = async () => {
                 class="mr-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">send email
                 New User</button>
   
-                <RouterLink to="/connexion">
-              <button type="button"
+              <RouterLink to="/connexion"
                 class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">annuler
-              </button></RouterLink>
+              </RouterLink>
   
             </div>
           </div>

@@ -10,11 +10,12 @@ import { formatDate } from '@/helper';
   import { onMounted, ref } from 'vue'
   const currentUser = ref()
 const router = useRouter();
-import { pb } from '@/backend'
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.value.authStore.onChange(() => {
+    !pb.value.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
   }, true)
 
 });
@@ -38,12 +39,12 @@ const reveid = await getDreamByID(route.params.id)
                   <IconAbonnement :Abonnement="reveid.expand.users.Abonnement" class="w-[25px]" />
           
                   <p class="leading-[0px] pt-3">Par {{ reveid.expand.users.name }}</p>
-          <p class="text-[10px] text-zinc-400">Le {{ formatDate(reveid.Date) }}</p>
+          <small >Le {{ formatDate(reveid.Date) }}</small>
         </section>
         <h1 class="col-start-1 col-span-2 pb-3">{{ reveid.Titre }}</h1>
       </div>
 </RouterLink>
-      <div class="bg-violet-900 p-6 rounded-tl-[50px] relative min-h-[65dvh] ">
+      <div class="bg-violet-900 p-6 rounded-tl-[50px] relative min-h-[70dvh] ">
       <p>{{ reveid.Description }}</p>  
       <img src="/img/corner-top-droite.svg" alt="illustration de fond" class="absolute -top-11 right-0">
       </div>  

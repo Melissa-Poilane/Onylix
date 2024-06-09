@@ -57,6 +57,7 @@ export enum RevesNoteReveOptions {
 	"E5" = "5",
 }
 export type RevesRecord = {
+	Analyse?: string
 	Date?: IsoDateString
 	Description: string
 	Extrait_de_description?: string

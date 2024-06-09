@@ -2,9 +2,10 @@
 <script setup lang="ts">
 import HeaderInscription from '@/components/HeaderInscription.vue'
 import { onMounted, ref } from 'vue'
-import PocketBase from 'pocketbase'
 import { useRouter } from "vue-router";
 import { profilePictures } from '@/data';
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 
 defineProps<{
   id: number;
@@ -12,7 +13,6 @@ defineProps<{
     imgAlt: string;
 }>()
 
-let pb = null
 const currentUser = ref()
 const username = ref('')
 const password = ref('')
@@ -29,10 +29,9 @@ let selectedImageIndex = ref(null)
 const router = useRouter();
 
 onMounted(async () => {
-  pb = new PocketBase('http://127.0.0.1:8090');
 
-  pb.authStore.onChange(() => {
-    currentUser.value = pb.authStore.model
+  pb.value.authStore.onChange(() => {
+    currentUser.value = pb.value.authStore.model
   }, true)
 
 });
@@ -40,7 +39,7 @@ onMounted(async () => {
 
 const doLogin = async () => {
   try {
-    const authData = await pb.collection('users')
+    const authData = await pb.value.collection('users')
       .authWithPassword(username.value, password.value);
 
     if (authData) {
@@ -93,7 +92,7 @@ const doCreateAccount = async () => {
       "biographie": "Je suis un rêveur",
     };
 
-    const record = await pb.collection('users').create(data);
+    const record = await pb.value.collection('users').create(data);
 
     if (record) {
       await doLogin();
@@ -129,15 +128,14 @@ const isSelected = (image) => {
           <p class="text-2xl mb-7">
             A partir d’aujourd’hui, nous comprendrons le sens de nos rêves&nbsp;!
           </p>
-          <div class="py-5 bg-gray-50 rounded-full mb-2">
-            <button
-              @click="
+          <div @click="
                 registerMode = true,
                 welcolme = false
               "
-            >
+            class="py-5 bg-gray-50 rounded-full mb-2">
+            
               <h4>C’est parti</h4>
-            </button>
+           
           </div>
           <button
             @click="
@@ -252,15 +250,13 @@ const isSelected = (image) => {
             >
           </section>
 
-          <div class="py-4 bg-gray-50 rounded-full text-center mb-5">
-            <button
-              @click="
+          <div  @click="
                 registerMode = false,
                 step2 = true
-              "
-            >
+              " class="py-4 bg-gray-50 rounded-full text-center mb-5">
+           
               <h4>Créer un compte</h4>
-            </button>
+            
           </div>
           
         </div>
@@ -310,15 +306,13 @@ const isSelected = (image) => {
               alt="image de papillon"
               class="absolute bottom-5 left-0"
             />
-            <div class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
-              <button
-                @click="
+            <div  @click="
                   step2 = false,
                   step3 = true
-                "
-              >
+                " class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
+             
                 <h4>Continuer</h4>
-              </button>
+              
             </div>
             <img
               src="/img/suivi-inscription2.svg"
@@ -355,8 +349,8 @@ const isSelected = (image) => {
 
           <div class="w-full mb-5 ">
            
-            <div class="py-3 bg-gray-50 rounded-full text-center mb-2">
-              <button @click="doCreateAccount"><h4>Continuer</h4></button>
+            <div @click="doCreateAccount" class="py-3 bg-gray-50 rounded-full text-center mb-2">
+             <h4>Continuer</h4>
             </div>
             <img
               src="/img/suivi-inscription3.svg"

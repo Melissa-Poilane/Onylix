@@ -6,18 +6,18 @@ import { useRouter } from 'vue-router';
 const currentUser = ref()
 const router = useRouter();
 
-
-import { pb } from '@/backend'
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.value.authStore.onChange(() => {
+    !pb.value.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
   }, true)
 
 });
 
 const doLogout = () => {
-  pb.authStore.clear();
+  pb.value.authStore.clear();
   currentUser.value = null;
   router.replace('/connexion');
 };

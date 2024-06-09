@@ -7,14 +7,15 @@ import IconProfil from '@/components/icons/IconProfil.vue';
 import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
-
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 const currentUser = ref()
 const router = useRouter();
-import { pb } from '@/backend'
+
 onMounted(async () => {
-  pb.authStore.onChange(() => {
-    !pb.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
+  pb.value.authStore.onChange(() => {
+    !pb.value.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
   }, true)
 
 });
@@ -58,7 +59,7 @@ console.log(Reves[0].expand.users.Avatar)
                   <p>{{ reve.expand.users.name }}</p>
                   <IconAbonnement :Abonnement="reve.expand.users.Abonnement" />
                 </div>
-                <p class="flex text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
+                <small >Le {{ formatDate(reve.Date) }}</small>
                 <div class="flex flex-col relative gap-[10px]">
                   <h4 class="text-gray-50">{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>

@@ -9,19 +9,21 @@ import FooterPage from '@/components/FooterPage.vue';
 
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
-import { pb, allDreamByUserName} from '@/backend'
+import { allDreamByUserName} from '@/backend'
 import IconInterpreter from '@/components/icons/IconInterpreter.vue';
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 
 const currentUser = ref()
 const router = useRouter();
 const Reves = ref([]);
 
 onMounted(async () => {
-  pb.authStore.onChange(async () => {
-    if (!pb.authStore.isValid) {
+  pb.value.authStore.onChange(async () => {
+    if (!pb.value.authStore.isValid) {
       router.replace('/connexion');
     } else {
-      currentUser.value = pb.authStore.model;
+      currentUser.value = pb.value.authStore.model;
       Reves.value = await allDreamByUserName(currentUser.value.id);
     }
   }, true)
@@ -39,7 +41,7 @@ const saveBio = async () => {
     "biographie": newBio.value,
   };
   await updateUser(currentUser.value.id, data);
-  currentUser.value = pb.authStore.model;
+  currentUser.value = pb.value.authStore.model;
   editing.value = false;
 
 
@@ -91,24 +93,24 @@ const updatedream = async (id) => {
   </div>
 </section>
 
-   <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 w-full object-cover">
+   <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 w-full object-cover z-0">
   
   
- <h4 class="bg-violet-500 py-3 px-12 rounded-full text-gray-50">Rêves publiés</h4>
+ <h4 class="bg-violet-900 py-3 px-12 rounded-full text-gray-50 z-40">Rêves publiés</h4>
    
     </div> 
-    <div class="bg-violet-900 mx-3 rounded-3xl px-4 py-5 my-3 flex flex-col gap-3">
+    <div class="bg-violet-900 mx-3 rounded-3xl px-4 py-5 my-3 flex flex-col gap-3  z-30">
       
      
         <h4 v-if="Reves.length === 0" class="text-gray-50 text-center ">Vous n'avez pas encore publié de rêves</h4>
-        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl">
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl z-40">
           
 
             <article >
 
                 <div class="flex flex-col relative ">
                   <div class="flex justify-between items-center">
-                    <p class="text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
+                    <small>Le {{ formatDate(reve.Date) }}</small>
                     <div class="flex items-center gap-5">
                     <IconSupprimer @click="updatedream(reve.id)" />
                     <RouterLink :to="{

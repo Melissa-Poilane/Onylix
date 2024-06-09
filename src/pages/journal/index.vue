@@ -6,21 +6,22 @@ import TabBar from '@/components/TabBar.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
-import { pb, allDreamConnectedUser} from '@/backend'
+import { allDreamConnectedUser} from '@/backend'
 import FooterPage from '@/components/FooterPage.vue';
 import IconPlus from '@/components/icons/IconPlus.vue';
 import IconInterpreter from '@/components/icons/IconInterpreter.vue';
-
+import {usePocketBase} from '@/composables/usePocketBase'
+const {pb} = usePocketBase()
 const currentUser = ref()
 const router = useRouter();
 const Reves = ref([]);
 
 onMounted(async () => {
-  pb.authStore.onChange(async () => {
-    if (!pb.authStore.isValid) {
+  pb.value.authStore.onChange(async () => {
+    if (!pb.value.authStore.isValid) {
       router.replace('/connexion');
     } else {
-      currentUser.value = pb.authStore.model;
+      currentUser.value = pb.value.authStore.model;
       Reves.value = await allDreamConnectedUser(currentUser.value.id);
     }
   }, true)
@@ -44,14 +45,14 @@ onMounted(async () => {
 
       <div class="flex flex-col gap-3 bg-violet-900 relative py-5 px-4 mr-4 rounded-b-3xl rounded-tr-3xl">
         <h4 v-if="Reves.length === 0" class="text-gray-50 text-center mx-8">Vous n'avez pas encore écrit de rêve !</h4>
-        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl">
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-5 rounded-3xl">
           
 
             <article >
 
                 <div class="flex flex-col relative ">
                   <div class="flex justify-between items-center">
-                    <p class="text-[10px] text-zinc-400">Le {{ formatDate(reve.Date) }}</p>
+                    <small>Le {{ formatDate(reve.Date) }}</small>
                     <RouterLink :to="{
                   name: '/interpreter/[id]',
                   params: { id: reve.id }

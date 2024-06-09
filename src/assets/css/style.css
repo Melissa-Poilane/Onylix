@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @layer base {
-h1, h3, h4, small, .h5 {
+h1, h3, h4, .h5 {
     @apply font-NanamiRegular;
 }
 
 h2, h5, h6 { 
-    @apply font-NanamiBold;
+    @apply  font-NanamiRegular;
 }
 
     h1 {
@@ -16,7 +16,7 @@ h2, h5, h6 {
     }
 
     h2 {
-        @apply text-[28px] leading-[30.8px];
+        @apply text-[28px] leading-[30.8px] font-NanamiBold;
     }
 
     h3 {
@@ -35,7 +35,7 @@ h2, h5, h6 {
     }
 
     body {
-        @apply text-lg font-DelSemiLight text-gray-50 min-h-screen bg-violet-950;
+        @apply text-lg font-DelSemiLight text-gray-50 bg-violet-950;
     }
 
     .BodyS {
@@ -43,7 +43,7 @@ h2, h5, h6 {
     }
 
     small {
-        @apply text-[10px] leading-[13.42px];
+        @apply text-[10px] leading-[13.42px] text-zinc-400 my-1;
     }
 
     input {
@@ -105,5 +105,8 @@ input[type="checkbox"]:checked::before {
 
 .degradsombre {
     @apply bg-gradient-to-b from-[#361271] to-violet-900 ;
+}
+.active::after {
+    @apply content-[''] block border-b-2 border-gray-50 w-[75%] rounded-full;
 }
 }
