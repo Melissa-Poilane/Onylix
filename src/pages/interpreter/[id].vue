@@ -5,6 +5,7 @@ import { updateDream, getDreamByID } from '@/backend'
 import { pb } from '@/backend'
 import IconInterpreter from '@/components/icons/IconInterpreter.vue'
 import IconSupprimer from '@/components/icons/IconSupprimer.vue'
+import LoadingBar from '@/components/LoadingBar.vue'
 
 const route = useRoute('/interpreter/[id]')
 console.log('id :', route.params.id)
@@ -65,7 +66,7 @@ const handleSubmit = async () => {
     setTimeout(() => {
         isLoading.value = false
         resultscreen.value = true
-      }, 6000)
+      }, 5000)
 
   } catch (error) {
     console.error('Error:', error)
@@ -83,7 +84,7 @@ const handleSubmit = async () => {
           <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
-      <h1 class="text-center px-7 mt-6">{{ reveid.Titre }}</h1>
+      <h1 class="text-center px-7 mt-8">{{ reveid.Titre }}</h1>
       <div class="mt-5 px-6">
 
         <div class="flex mb-3 justify-center">
@@ -98,16 +99,28 @@ const handleSubmit = async () => {
             placeholder="Raconte moi ton rêve..."></textarea>
 
           <button type="submit"
-            class="my-5 flex gap-3 py-4 bg-gray-50 rounded-full justify-center items-center w-full">
+            class="my-7 flex gap-3 py-4 bg-gray-50 rounded-full justify-center items-center w-full">
             <IconInterpreter class="fill-violet-500 w-7 h-7 " />
             <h4>Interpreter</h4>
           </button>
         </form>
+        
       </div>
+      <img src="/public/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
     </div>
 
     <div v-if="isLoading">
-    <p>Chargement...</p>
+      
+      <img src="/public/img/nuages-loading.svg" alt="illustration de nuages" class="w-full  z-20">
+      <div class="bg-violet-950 pt-8 px-7 z-30">
+        <h1>Analyse de ton rêve en cours...</h1>
+        <div class="my-10">
+    <LoadingBar :duration="3200" />
+        </div>
+        <p>"Le savais-tu ? Le diamant est le fruit de la cristallisation du carbone, ce même carbone dont est constitué le charbon !"</p>
+        <div class="flex justify-center ">
+        <img src="/public/img/mascotte-dort.svg " alt="illustration de Onyx" class="py-8">
+      </div></div>
   </div>
 
     <div v-else-if="resultscreen" >
@@ -121,10 +134,11 @@ const handleSubmit = async () => {
       </div>
       <div class="p-4">
       <p>{{ apiResponse }}</p>
-    </div>
-    </div>
+    </div> <img src="/public/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
+   
+  </div>
   </div>
 
-  <img src="/public/img/footer-liquid-interpretation.svg" alt="illustrations footer" class="w-full mt-7">
+ 
 
 </template>

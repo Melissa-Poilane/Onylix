@@ -43,7 +43,7 @@ console.log(Reves[0].expand.users.Avatar)
       </div>
 
 
-      <div class="flex flex-col gap-3 mx-1">
+      <div class="flex flex-col gap-3 mx-3">
         <div v-for="reve in Reves" v-bind="reve" :key="reve.id" class="bg-violet-900 px-4 py-5 rounded-3xl">
           <RouterLink :to="{
             name: '/reves/[id]',
