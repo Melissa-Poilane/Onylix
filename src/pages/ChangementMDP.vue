@@ -14,7 +14,7 @@ const doRequest = async () => {
     alert('email is required')
   }
   try {
-   await pb.value.collection('users').requestPasswordReset(email.value);
+   await pb.collection('users').requestPasswordReset(email.value);
     alert('email envoyé')
 
     router.replace('/connexion')

@@ -4,8 +4,7 @@ import HeaderInscription from '@/components/HeaderInscription.vue'
 import { onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { profilePictures } from '@/data';
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 
 defineProps<{
   id: number;
@@ -30,8 +29,8 @@ const router = useRouter();
 
 onMounted(async () => {
 
-  pb.value.authStore.onChange(() => {
-    currentUser.value = pb.value.authStore.model
+  pb.authStore.onChange(() => {
+    currentUser.value = pb.authStore.model
   }, true)
 
 });
@@ -39,7 +38,7 @@ onMounted(async () => {
 
 const doLogin = async () => {
   try {
-    const authData = await pb.value.collection('users')
+    const authData = await pb.collection('users')
       .authWithPassword(username.value, password.value);
 
     if (authData) {
@@ -92,7 +91,7 @@ const doCreateAccount = async () => {
       "biographie": "Je suis un rêveur",
     };
 
-    const record = await pb.value.collection('users').create(data);
+    const record = await pb.collection('users').create(data);
 
     if (record) {
       await doLogin();

@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { useRoute, useRouter } from 'vue-router/auto'
+import { useRoute ,useRouter } from 'vue-router/auto'
 import { onMounted, ref } from 'vue'
-import { createDream, truncateDescription } from '@/backend'
+import { updateDream, truncateDescription, getDreamByID, deleteDream } from '@/backend'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconHelp from '@/components/icons/IconHelp.vue'
-
 import { pb } from '@/backend'
-const route = useRoute('/interpreter/[id]')
-console.log('id :', route.params.id)
+
+const route = useRoute('/modifierreve/[id]')
+  console.log('id :', route.params.id)
+  
 const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
@@ -22,38 +23,50 @@ const goBack = () => {
     router.go(-1);
 }
 
-import { Type_reve, Notes, Longeur_reve } from '@/data';
-let selectedType = ref(Type_reve[3].id)
-let selectedNote = ref(Notes[2].id)
-let selectedLongeur = ref(Longeur_reve[2].id)
-
-let recit = ref(true)
-let détails = ref(false)
-const help = ref(false)
-const help2 = ref(false)
-const Titre = ref('')
-const Description = ref('')
-
-const docreatedream = async () => {
+const doUpdatedream = async () => {
     try {
         const dream = {
-            "online": false,
             "Titre": Titre.value,
             "Description": Description.value,
-            "Date": new Date().toISOString(),
             "Extrait_de_description": truncateDescription(Description.value, 85),
-            "users": pb.authStore.model.id,
             "Type_reve": selectedType.value,
             "Note_reve": selectedNote.value,
             "Longeur_reve": selectedLongeur.value
 
         }
-        await createDream(dream);
+        await updateDream(route.params.id, dream);
         await router.push('/journal');
     } catch (error) {
         alert('Une erreur est survenue :(');
     }
 };
+
+const doDelete = async () => {
+    try {
+        await deleteDream(route.params.id);
+        await router.push('/journal');
+    } catch (error) {
+        alert('Une erreur est survenue :(');
+    }
+};
+
+const reveid = await getDreamByID(route.params.id)
+console.log(reveid)
+
+import { Type_reve, Notes, Longeur_reve } from '@/data';
+import IconPoubelle from '@/components/icons/IconPoubelle.vue'
+let selectedType = ref(reveid.Type_reve)
+let selectedNote = ref(reveid.Note_reve)
+let selectedLongeur = ref(reveid.Longeur_reve)
+
+let recit = ref(true)
+let détails = ref(false)
+const help = ref(false)
+const help2 = ref(false)
+const Titre = ref(reveid.Titre)
+const Description = ref(reveid.Description)
+
+
 
 const selectType = (type) => {
     selectedType.value = type;
@@ -99,13 +112,13 @@ const isLongeurSelected = (longeur) => {
 
                 <div v-if="recit">
                     
-                        <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-3 pt-5 pb-0  w-full focus:bg-violet-800 rounded-xl h5  " v-model="Titre"
-                        type="text" name="Titre" id="Titre" autocomplete="none" placeholder="Ajoute un titre"></textarea>
-                        <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl" v-model="Description"
-    name="Description" id="Description" autocomplete="none"
-    placeholder="Raconte ton rêve..."></textarea>
+                    <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-3 pt-5 pb-0  w-full focus:bg-violet-800 rounded-xl h5  " v-model="Titre"
+                    type="text" name="Titre" id="Titre" autocomplete="none" placeholder="Ajoute un titre"></textarea>
+                    <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl" v-model="Description"
+name="Description" id="Description" autocomplete="none"
+placeholder="Raconte ton rêve..."></textarea>
 
-                </div>
+            </div>
 
                 <div v-if="détails" class=" mt-8 gap-4 flex flex-col">
 <section class="flex flex-col gap-2 px-4 py-4  bg-violet-900 rounded-3xl">
@@ -175,14 +188,17 @@ const isLongeurSelected = (longeur) => {
     </div>
 </div>
                 </div>
-
-                <div @click="docreatedream" class="my-9 flex gap-3 py-4 bg-gray-50 rounded-full justify-center">
+<div class="flex justify-between">
+                <div @click="doUpdatedream" class="my-9 flex gap-3 py-4 bg-gray-50 px-[10dvw] rounded-full justify-center">
                     <IconCheck class="stroke-violet-500" />
                     <h4>Sauvegarder</h4>
                 </div>
-
+                <div @click="doDelete" class="my-9 py-4 bg-red-700 px-[8dvw] rounded-full justify-center">
+                    <IconPoubelle />
+                   
+                </div>
+</div>
             </div>
-            
         </div>
         
     </div>

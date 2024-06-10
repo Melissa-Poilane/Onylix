@@ -7,15 +7,14 @@ import IconProfil from '@/components/icons/IconProfil.vue';
 import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 const currentUser = ref()
 const router = useRouter();
 
 onMounted(async () => {
-  pb.value.authStore.onChange(() => {
-    !pb.value.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
 
 });

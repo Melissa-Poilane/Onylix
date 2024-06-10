@@ -11,8 +11,7 @@ defineProps<{
     imgAlt: string;
 }>()
 
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 const currentUser = ref()
 const router = useRouter();
 let selectedImageIndex = ref(null)
@@ -20,8 +19,8 @@ let selectedImageIndex = ref(null)
 onMounted(async () => {
   
 
-  pb.value.authStore.onChange(() => {
-    currentUser.value = pb.value.authStore.model
+  pb.authStore.onChange(() => {
+    currentUser.value = pb.authStore.model
   }, true)
 
 });

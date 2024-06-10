@@ -5,16 +5,15 @@ import { onMounted, ref } from 'vue'
 import { allDreamByUserName, getUserByID } from '@/backend';
 import IconProfil from '@/components/icons/IconProfil.vue';
 import FooterPage from '@/components/FooterPage.vue';
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
   const route = useRoute('/reveurs/[id]')
   console.log('id :', route.params.id)
   const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
-  pb.value.authStore.onChange(() => {
-    !pb.value.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
 
 });

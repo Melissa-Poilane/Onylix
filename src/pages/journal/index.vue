@@ -10,18 +10,17 @@ import { allDreamConnectedUser} from '@/backend'
 import FooterPage from '@/components/FooterPage.vue';
 import IconPlus from '@/components/icons/IconPlus.vue';
 import IconInterpreter from '@/components/icons/IconInterpreter.vue';
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 const currentUser = ref()
 const router = useRouter();
 const Reves = ref([]);
 
 onMounted(async () => {
-  pb.value.authStore.onChange(async () => {
-    if (!pb.value.authStore.isValid) {
+  pb.authStore.onChange(async () => {
+    if (!pb.authStore.isValid) {
       router.replace('/connexion');
     } else {
-      currentUser.value = pb.value.authStore.model;
+      currentUser.value = pb.authStore.model;
       Reves.value = await allDreamConnectedUser(currentUser.value.id);
     }
   }, true)

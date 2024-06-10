@@ -6,16 +6,15 @@ import { onMounted, ref } from 'vue'
 import { allDreamByUserName, getUserByID } from '@/backend';
 import IconProfil from '@/components/icons/IconProfil.vue';
 import FooterPage from '@/components/FooterPage.vue';
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
   const route = useRoute('/reveurs/[id]')
   console.log('id :', route.params.id)
   const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
-  pb.value.authStore.onChange(() => {
-    !pb.value.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
 
 });
@@ -37,7 +36,7 @@ console.log(Users)
     
         <section class="flex flex-col items-center text-center px-5 my-6"> 
       <IconProfil v-bind="Users" class=" w-[98px] h-[105px] z-[2] mb-4" />
-      <h4>{{ Users.name }}</h4>
+      <h4 class="text-gray-50">{{ Users.name }}</h4>
 <p class="BodyS leading-5 mt-2">{{ Users.biographie }}</p></section>
    <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 top-6 z-0 w-full object-cover">
 </div>

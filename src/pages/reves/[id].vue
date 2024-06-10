@@ -10,12 +10,11 @@ import { formatDate } from '@/helper';
   import { onMounted, ref } from 'vue'
   const currentUser = ref()
 const router = useRouter();
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 onMounted(async () => {
-  pb.value.authStore.onChange(() => {
-    !pb.value.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
 
 });

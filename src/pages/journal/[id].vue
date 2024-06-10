@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router/auto'
 import { onMounted, ref } from 'vue'
-import {usePocketBase} from '@/composables/usePocketBase'
-const {pb} = usePocketBase()
+import { pb } from '@/backend'
 import { getDreamByID, updateDream } from '@/backend';
 import IconShare from '@/components/icons/IconShare.vue';
 import IconModif from '@/components/icons/IconModif.vue';
@@ -12,12 +11,16 @@ import IconTypeReve from '@/components/icons/IconTypeReve.vue';
 
   const route = useRoute('/interpreter/[id]')
   console.log('id :', route.params.id)
+
+  const route2 = useRoute('/modifierreve/[id]')
+  console.log('id :', route2.params.id)
+
   const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
-  pb.value.authStore.onChange(() => {
-    !pb.value.authStore.isValid && router.replace('/connexion');
-    currentUser.value = pb.value.authStore.isValid ? pb.value.authStore.model : null;
+  pb.authStore.onChange(() => {
+    !pb.authStore.isValid && router.replace('/connexion');
+    currentUser.value = pb.authStore.isValid ? pb.authStore.model : null;
   }, true)
 
 });
@@ -65,9 +68,12 @@ let détails = ref(false)
             <IconShare class=" w-8 h-5"/>
           </button>
 
-          <RouterLink to="/modifier-reve" >
-            <IconModif class="fill-violet-900 w-12 h-12"/>
-          </RouterLink></div>
+          <RouterLink  :to="{
+            name: '/modifierreve/[id]',
+            params: { id: route.params.id }
+          }">
+            <IconModif class="fill-violet-900 w-12 h-12"/></RouterLink>
+          </div>
         </div>
         <small class=" mx-8 text-[24px]">Le {{ formatDate(reveid.Date) }}</small>
         <h3 class="z-10 mx-8 mb-9">{{reveid.Titre}} </h3>
@@ -81,7 +87,7 @@ let détails = ref(false)
           <button @click="recit = false, détails = true"><h5 class="text-zinc-400" :class="{' !text-gray-50  active': détails}">Détails</h5></button>
         </div>
        <div v-if="recit">
-      <p>{{ reveid.Description }}</p>  
+      <p class="pb-24">{{ reveid.Description }}</p>  
       
     </div> 
     <div v-if="détails">
@@ -90,7 +96,7 @@ let détails = ref(false)
       <div class="grid grid-cols-[1fr_2fr] grid-rows-[64.5px_64.5px] mt-3 mb-6 gap-4">
         <section class="flex flex-col items-center bg-violet-700 py-4 rounded-xl row-span-2 justify-center gap-4">
 <IconTypeReve :Type_reve="reveid.Type_reve" class="w-[50px] h-[50px]" />
-          <h5 class="text-violet-300">{{ reveid.Type_reve }}</h5>
+          <h5 class="text-gray-50">{{ reveid.Type_reve }}</h5>
         </section>
 
         <section class="flex justify-between bg-violet-700 rounded-xl px-4 items-center gap-3">
@@ -107,7 +113,7 @@ let détails = ref(false)
 
       <h4 class="text-gray-50">L’analyse d’Onyx</h4>
       <p v-if="!reveid.Analyse" class="BodyS mt-2">Tu n’a pas encore demandé a Onyx d’analyser ton rêve ! </p>
-    <p v-else>{{reveid.Analyse}}</p>
+    <p v-else class="mb-24">{{reveid.Analyse}}</p>
     
     </div>
 

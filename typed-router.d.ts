@@ -26,7 +26,7 @@ declare module 'vue-router/auto-routes' {
     '/journal/': RouteRecordInfo<'/journal/', '/journal', Record<never, never>, Record<never, never>>,
     '/journal/[id]': RouteRecordInfo<'/journal/[id]', '/journal/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/modifier-avatar': RouteRecordInfo<'/modifier-avatar', '/modifier-avatar', Record<never, never>, Record<never, never>>,
-    '/modifier-reve': RouteRecordInfo<'/modifier-reve', '/modifier-reve', Record<never, never>, Record<never, never>>,
+    '/modifierreve/[id]': RouteRecordInfo<'/modifierreve/[id]', '/modifierreve/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/parametres': RouteRecordInfo<'/parametres', '/parametres', Record<never, never>, Record<never, never>>,
     '/profil': RouteRecordInfo<'/profil', '/profil', Record<never, never>, Record<never, never>>,
     '/reves/': RouteRecordInfo<'/reves/', '/reves', Record<never, never>, Record<never, never>>,
