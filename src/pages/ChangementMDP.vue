@@ -1,10 +1,9 @@
 <script setup>
 import {  ref } from 'vue';
 import { RouterLink, useRouter} from 'vue-router';
-import {usePocketBase} from '@/composables/usePocketBase'
+import { pb } from '@/backend';
 
 
-const {pb} = usePocketBase()
 const email = ref("");
 const router = useRouter()
 

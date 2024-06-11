@@ -106,12 +106,12 @@ const handleSubmit = async () => {
         </form>
         
       </div>
-      <img src="/public/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
+      <img src="/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
     </div>
 
     <div v-if="isLoading">
       
-      <img src="/public/img/nuages-loading.svg" alt="illustration de nuages" class="w-full  z-20">
+      <img src="/img/nuages-loading.svg" alt="illustration de nuages" class="w-full  z-20">
       <div class="bg-violet-950 pt-8 px-7 z-30">
         <h1>Analyse de ton rêve en cours...</h1>
         <div class="my-10">
@@ -119,12 +119,12 @@ const handleSubmit = async () => {
         </div>
         <p>"Le savais-tu ? Le diamant est le fruit de la cristallisation du carbone, ce même carbone dont est constitué le charbon !"</p>
         <div class="flex justify-center ">
-        <img src="/public/img/mascotte-dort.svg " alt="illustration de Onyx" class="py-8">
+        <img src="/img/mascotte-dort.svg " alt="illustration de Onyx" class="py-8">
       </div></div>
   </div>
 
     <div v-else-if="resultscreen" >
-      <img src="/public/img/header-interpretation.svg" alt="illustration de onyx /étoiles /papillons"
+      <img src="/img/header-interpretation.svg" alt="illustration de onyx /étoiles /papillons"
         class="w-full  z-0">
       <div class="left-8 top-16 z-40 absolute">
         <RouterLink @click="doUpdatedream" to="/journal"> 
@@ -134,7 +134,7 @@ const handleSubmit = async () => {
       </div>
       <div class="p-4">
       <p>{{ apiResponse }}</p>
-    </div> <img src="/public/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
+    </div> <img src="/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
    
   </div>
   </div>

@@ -101,7 +101,7 @@ const updatedream = async (id) => {
     <div class="bg-violet-900 mx-3 rounded-3xl px-4 py-5 my-3 flex flex-col gap-3  z-30">
       
      
-        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center ">Vous n'avez pas encore publié de rêves</h4>
+        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center ">Tu n'as pas encore publié de rêves !</h4>
         <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl z-40">
           
 

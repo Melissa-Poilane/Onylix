@@ -30,7 +30,7 @@ export async function allDreamUserSort() {
   return await pb.collection(Collections.Reves).getFullList<RevesResponse>(
         {expand: 'users',
             filter: 'online = true',
-            sort: 'created'
+            sort: '-created'
         })
 }
 

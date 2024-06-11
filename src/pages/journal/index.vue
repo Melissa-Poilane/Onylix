@@ -43,7 +43,7 @@ onMounted(async () => {
 
 
       <div class="flex flex-col gap-3 bg-violet-900 relative py-5 px-4 mr-4 rounded-b-3xl rounded-tr-3xl">
-        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center mx-8">Vous n'avez pas encore écrit de rêve !</h4>
+        <h4 v-if="Reves.length === 0" class="text-gray-50 text-center mx-8">Tu n'as pas encore écrit de rêve !</h4>
         <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-5 rounded-3xl">
           
 

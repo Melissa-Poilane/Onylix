@@ -202,5 +202,5 @@ placeholder="Raconte ton rêve..."></textarea>
         </div>
         
     </div>
-    <img src="/public/img/footer-liquid.svg" alt="illustrations d'étoiles" class="w-full">
+    <img src="/img/footer-liquid.svg" alt="illustrations d'étoiles" class="w-full">
 </template>

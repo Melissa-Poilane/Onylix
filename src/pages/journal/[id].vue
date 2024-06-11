@@ -35,7 +35,7 @@ const updatedream = async (id) => {
       "online": true
     };
     await updateDream(id, dream);
-    location.reload();
+    router.push('/reves');
   } catch (error) {
     alert('Une erreur est survenue :/');
   }

@@ -32,13 +32,13 @@ console.log(Reves[0].expand.users.Avatar)
 <template>
   <div v-if="currentUser">
 
-    <div class="flex flex-col gap-4 bg-violet-950 min-h-screen ">
-      <div class="grid grid-cols-[1fr_90px] items-center px-[4dvw] pt-16 pb-7 bg-violet-900 rounded-b-3xl relative">
-        <section class="flex flex-col">
+    <div class="flex flex-col gap-4 bg-violet-950">
+      <div class="flex items-center justify-between px-[4dvw] pt-16 pb-7 bg-violet-900 rounded-b-3xl relative">
+        <section>
           <p>Salut {{ currentUser?.name }},</p>
           <h1 class="text-3xl">Rêvons ensemble</h1>
         </section>
-        <IconProfil v-bind="currentUser" class=" w-[87px] h-[94px] z-10" />
+        <IconProfil v-bind="currentUser" class=" w-[87px] h-[94px] z-10 " />
         <img src="/img/papilliongradient.svg" alt="image de papillons" class="absolute inset-0 z-0 max-h-full w-full object-cover">
       </div>
 

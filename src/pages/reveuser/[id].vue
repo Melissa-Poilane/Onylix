@@ -50,7 +50,7 @@ console.log(Users)
 
             <article class="flex flex-col gap-1">
 
-                <small">Le {{ formatDate(reve.Date) }}</small>
+                <small>Le {{ formatDate(reve.Date) }}</small>
                 <div class="flex flex-col relative gap-[10px]">
                   <h4 class="text-gray-50">{{ reve.Titre }}</h4>
                   <p>{{ reve.Extrait_de_description }}</p>

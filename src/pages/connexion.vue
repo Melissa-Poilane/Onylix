@@ -110,6 +110,8 @@ const isSelected = (image) => {
   return selectedImageIndex.value === image;
 }
 
+
+
 </script>
 
 <template>
@@ -118,7 +120,7 @@ const isSelected = (image) => {
       <!-- ECRAN DACCUEIL -->
       <div
         v-if="welcolme"
-        class="flex flex-col justify-between items-center min-h-screen pt-[15dvh] text-center gap-[10dvh]"
+        class="flex flex-col justify-between items-center min-h-screen pt-[13dvh] text-center gap-[5dvh]"
       >
           <img src="/img/mascotte/mascotte-bvn.svg" alt="image de onyx" class="w-[60dvw]" />
        
@@ -150,6 +152,14 @@ const isSelected = (image) => {
       <!-- ECRAN DE CONNEXION -->
       <div v-if="loginMode" class="flex flex-col justify-between min-h-screen">
         <div>
+          <div class="absolute top-10 left-6 z-20 ">
+        <button @click="
+                loginMode = false,
+                welcolme = true
+              ">
+          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        </button>
+      </div>
         <div class="mb-auto flex justify-center">
           <HeaderInscription
             :title="'Content de te revoir !'"
@@ -201,6 +211,14 @@ const isSelected = (image) => {
       <!-- ECRAN D'INSCRIPTION 1 -->
       <div v-if="registerMode" class="flex flex-col justify-between min-h-screen ">
         <div>
+          <div class="absolute top-10 left-6 z-20 ">
+        <button @click="
+                registerMode = false,
+                welcolme = true
+              ">
+          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        </button>
+      </div>
         <div class="flex justify-center">
           <HeaderInscription :title="'Crée ton compte !'" :subtitle="'Rejoins 200 k rêveurs'" />
           <img
@@ -272,6 +290,14 @@ const isSelected = (image) => {
 
       <!-- ECRAN D'INSCRIPTION 2 -->
       <div v-if="step2">
+        <div class="absolute top-10 left-6 z-20 ">
+        <button @click="
+                step2 = false,
+                registerMode = true
+              ">
+          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        </button>
+      </div>
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">
           <div class="w-full">
             <div class="relative text-center pt-28 pb-14">
@@ -324,6 +350,14 @@ const isSelected = (image) => {
 
       <!-- ECRAN D'INSCRIPTION 3 -->
       <div v-if="step3">
+        <div class="absolute top-10 left-6 z-20 ">
+        <button @click="
+                step3 = false,
+                step2 = true
+              ">
+          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        </button>
+      </div>
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">
           <div class="text-center">
             <img src="/img/choixavatar.svg" alt="illustration avatar" />
