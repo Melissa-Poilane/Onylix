@@ -37,11 +37,11 @@ onMounted(async () => {
       <div class="flex flex-col items-center text-center z-10 ">
       <section class="flex flex-col items-center gap-4">
         <img src="/img/mascotte/mascotte-base.svg" alt="image de onyx">
-        <h4 class="text-gray-50 mb-10">De quoi as-tu rêver ? </h4>
+        <h4 class="text-gray-50 mb-10">De quoi as-tu rêvé ? </h4>
       </section>
       <div>
         <ul>
-          <li class=" w-60 bg-gray-50 py-5 rounded-2xl mb-2">
+          <li class=" w-60 bg-gray-50 py-5 rounded-2xl mb-3">
             <RouterLink to="/saisir-reve" >
               <h4>+ Ajouter un rêve</h4>
             </RouterLink>
@@ -51,11 +51,7 @@ onMounted(async () => {
               <h4 class="text-gray-50">J'ai oublié</h4>
             </RouterLink>
           </li>
-          <li>
-            <RouterLink to="/reves">
-              <h4 class="text-gray-50">Passer</h4>
-            </RouterLink>
-          </li>
+          
         </ul>
       </div>
     </div>

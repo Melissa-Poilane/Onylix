@@ -30,6 +30,7 @@ declare module 'vue-router/auto-routes' {
     '/modifierreve/[id]': RouteRecordInfo<'/modifierreve/[id]', '/modifierreve/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/parametres': RouteRecordInfo<'/parametres', '/parametres', Record<never, never>, Record<never, never>>,
     '/profil': RouteRecordInfo<'/profil', '/profil', Record<never, never>, Record<never, never>>,
+    '/resultatIA/[id]': RouteRecordInfo<'/resultatIA/[id]', '/resultatIA/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/reves/': RouteRecordInfo<'/reves/', '/reves', Record<never, never>, Record<never, never>>,
     '/reves/[id]': RouteRecordInfo<'/reves/[id]', '/reves/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/reveurs/[id]': RouteRecordInfo<'/reveurs/[id]', '/reveurs/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,

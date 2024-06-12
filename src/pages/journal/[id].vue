@@ -47,6 +47,8 @@ console.log(reveid)
 
 let recit = ref(true)
 let détails = ref(false)
+
+
 </script>
 
 <template>
@@ -118,7 +120,7 @@ let détails = ref(false)
     </div>
 
     
-            <RouterLink  :to="{
+            <RouterLink v-if="!reveid.Analyse"  :to="{
             name: '/interpreter/[id]',
             params: { id: reveid.id }
           }" class="py-3 bg-gray-50 rounded-full text-center mb-2 fixed bottom-7 w-[85dvw] flex justify-center gap-3 items-center">

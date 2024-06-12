@@ -115,3 +115,43 @@ export async function allDreamConnectedUser(id) {
   return await pb.collection('reves').getFullList(
       { filter: `users.id = '${id}'`, expand: 'users' });
 }
+
+//Fonction pour appeler l'IA et intérpréter un rêve
+const API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3";
+const headers = { "Authorization": "Bearer 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", "Content-Type": "application/json" };
+
+export async function  CallIAinterpret(id) {
+  try {
+   const record = await pb.collection(Collections.Reves).getOne(id);
+   const demande = record.Description;
+
+   const prompt =  `Tu es un psychanalyste spécialisé dans l'interprétation des rêves. Donne une analyse complète et précise de ce rêve, ne complète pas le rêve. Concentre-toi uniquement sur l'analyse. Assure-toi que ton analyse soit rédigée sans aucune faute de français, en utilisant un langage courant et accessible. :  '${demande}'`;
+   console.log('Le prompt de base :', prompt);
+
+const payload = {
+    inputs: prompt,
+    parameters: { max_new_tokens: 5000, return_full_text: true }
+}
+
+    const response = await fetch(API_URL, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(payload)
+    });
+
+    const reponse = await response.json();
+const textegenere = reponse[0].generated_text;
+
+const promptLength = prompt.length;
+const outputbrut = textegenere.substring(promptLength).trim();
+
+const output = outputbrut.replace(/```json\n|\n```/g, "");
+
+const newAnalyse = await pb.collection(Collections.Reves).update(id, {Analyse: output});
+console.log('Analyse générée :', newAnalyse);
+
+return output;
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}

@@ -349,7 +349,10 @@ const Repetpassword = () => {
                   step3 = true
                 " class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
              
-                <h4>Continuer</h4>
+                <h4 @click="
+                  step2 = false,
+                  step3 = true
+                ">Continuer</h4>
               
             </div>
             <img

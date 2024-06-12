@@ -1,60 +1,92 @@
-<script setup>
-import {  ref } from 'vue';
-import { RouterLink, useRouter} from 'vue-router';
-import { pb } from '@/backend';
+<!-- eslint-disable vue/multi-word-component-names -->
+<script setup lang="ts">
+import HeaderInscription from '@/components/HeaderInscription.vue'
+import { onMounted, ref } from 'vue'
+import { pb } from '@/backend'
+import { useRouter } from 'vue-router/auto'
+defineProps<{
+  id: number;
+  imgpfp: string;
+    imgAlt: string;
+}>()
 
+const currentUser = ref()
+const email = ref('') 
 
-const email = ref("");
-const router = useRouter()
+const welcolme = ref(true)
+const loginMode = ref(false)
 
+onMounted(async () => {
 
-const doRequest = async () => {
-  if (email.value === "") {
-    alert('email is required')
-  }
-  try {
-   await pb.collection('users').requestPasswordReset(email.value);
-    alert('email envoyé')
+  pb.authStore.onChange(() => {
+    currentUser.value = pb.authStore.model
+  }, true)
 
-    router.replace('/connexion')
-  } catch (error) {
-    console.error('Erreur lors de la demande de réinitialisation du mot de passe :', error);
-  }
+});
+
+const confirm = ref(false)
+const router = useRouter();
+const doResetPassword = async () => {
+  await pb.collection('users').requestPasswordReset(email.value);
+  confirm.value = true
+  setTimeout(() => {
+        router.push('/connexion');
+      }, 3000)
 }
+
 
 </script>
 
 <template>
-    <div class="flex min-h-full items-center justify-center px-4 py-12 sm:px-6 lg:px-8 bg-violet-900" >
-      <div class="w-full max-w-md space-y-8">
-       
-        <div >
-          <h1>demande de changement de mdp</h1>
-          <div class="sm:col-span-2 sm:col-start-1 mt-4">
-            <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email Address</label>
-            <div class="mt-2">
-              <input v-model="email" type="email" name="email" id="email" autocomplete="none"
-                placeholder="Enter Email Address "
-                class=" px-2 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-            </div>
-          </div>
-          
-          
-          <div >
-           
-            <div class="sm:col-span-2 sm:col-start-1 mt-2">
-              <button type="button" @click="doRequest"
-                class="mr-3 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">send email
-                New User</button>
-  
-              <RouterLink to="/connexion"
-                class="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600">annuler
-              </RouterLink>
-  
-            </div>
-          </div>
-        </div>
+  <body class="bg-violet-900">
+    
+      <div  class="flex flex-col justify-between min-h-screen">
+        <div>
+          <div class="absolute top-10 left-6 z-20 ">
+        <button @click="
+                loginMode = false,
+                welcolme = true
+              ">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
+        </button>
       </div>
-    </div>
-  </template>
-  
+        <div class="mb-auto flex justify-center">
+          <HeaderInscription
+            :title="'Entre ton email'"
+            :subtitle="'Réinitialisation de mot de passe'"
+          />
+          <img
+            src="/img/etoiles/Etoilesconnexion.svg"
+            alt="petites étoiles"
+            class="absolute top-[200px] opacity-50"
+          />
+        </div>
+        <div class="px-10 flex flex-col justify-between h-[39dvh] gap-5">
+          <section >
+            <label for="username"><h5>Ton Email</h5></label>
+            <input
+              v-model="email"
+              type="text"
+              name="email"
+              id="email"
+              autocomplete="none"
+              placeholder="Ex : Onylix@gmail.com"
+            />
+            <h2 v-if="confirm" class=" bg-zinc-950 bg-opacity-70 rounded-2xl z-10  text-center p-20 mt-5">Email envoyé</h2>
+          </section>
+          
+          <button type="button" @click="doResetPassword" class="py-3 bg-gray-50 rounded-full w-full ">
+            <h4>Réinitialiser</h4>
+          </button>
+        </div>
+        
+          
+      
+      </div>
+        <footer>
+          <img src="/img/footer_vague.svg" alt="illustration de vagues" class="w-full" />
+        </footer>
+      </div>
+
+  </body>
+</template>
