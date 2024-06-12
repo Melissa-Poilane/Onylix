@@ -18,7 +18,7 @@ onMounted(() => {
 
     // Si l'utilisateur n'est pas connecté, redirigez-le vers la page de connexion, sinon, vers la home page
     if (!currentUser.value) {
-      router.push('/welcolmeuser');
+      router.push('/');
     } else {
       router.push('/connexion');
     }

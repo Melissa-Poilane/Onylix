@@ -5,6 +5,8 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from "vue-router";
 import { profilePictures } from '@/data';
 import { pb } from '@/backend'
+import Button from '@/components/Button.vue';
+
 
 defineProps<{
   id: number;
@@ -42,7 +44,7 @@ const doLogin = async () => {
       .authWithPassword(username.value, password.value);
 
     if (authData) {
-      router.push('/welcolmeuser')
+      router.push('/')
     }
   } catch (error) {
     alert(error.message)
@@ -103,23 +105,19 @@ const doCreateAccount = async () => {
   }
 };
 
-const selectImage = (image) => {
+const selectImage = (image: null) => {
   selectedImageIndex.value = image;
 }
-const isSelected = (image) => {
+const isSelected = (image: string | null) => {
   return selectedImageIndex.value === image;
 }
 
 let passwordError = false;
-let passwordrepetError = false;
 
 const validatePassword = () => {
     passwordError = password.value.length < 7
 }
 
-const Repetpassword = () => {
-    passwordrepetError = passwordConfirm.value !== password.value
-}
 </script>
 
 <template>
@@ -203,13 +201,11 @@ const Repetpassword = () => {
             />
           
           </section>
-          <!-- RECUPERATION DE MDP A FAIRE -->
           <RouterLink to="/changementMDP" >
           <p class="text-center mb-5">Mot de passe oublié ?</p>
 </RouterLink>
-          <button type="button" @click="doLogin" class="py-3 bg-gray-50 rounded-full w-full">
-            <h4>Connexion</h4>
-          </button>
+         
+            <Button text="Connexion" @click="doLogin" />
         </div>
       </div>
         <footer>
@@ -264,14 +260,13 @@ const Repetpassword = () => {
             <section >
             <label for="password"><h5>Confirme Ton Mot De Passe</h5></label>
             <input
-            @input="Repetpassword"
               v-model="passwordConfirm"
               type="password"
               name="password"
               id="password"
               autocomplete="none"
             />
-            <p v-if="passwordrepetError" class="BodyS m-1 text-violet-400">Les mots de passe ne correspondent pas</p>
+            <p v-if="password !== passwordConfirm" class="BodyS m-1 text-violet-400">Les mots de passe ne correspondent pas</p>
           </section>
           <section class="flex items-center gap-3">
             <input type="checkbox" id="terms" v-model="termsAccepted" required />
@@ -280,14 +275,10 @@ const Repetpassword = () => {
             >
           </section>
 
-          <div  @click="
+          
+          <Button text="Créer un compte"  @click="
                 registerMode = false,
-                step2 = true
-              " class="py-4 bg-gray-50 rounded-full text-center mb-5">
-           
-              <h4>Créer un compte</h4>
-            
-          </div>
+                step2 = true" />
           
         </div>
       </div>
@@ -344,17 +335,10 @@ const Repetpassword = () => {
               alt="image de papillon"
               class="absolute bottom-5 left-0"
             />
-            <div  @click="
+            
+            <Button text="Continuer"  @click="
                   step2 = false,
-                  step3 = true
-                " class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
-             
-                <h4 @click="
-                  step2 = false,
-                  step3 = true
-                ">Continuer</h4>
-              
-            </div>
+                  step3 = true" />
             <img
               src="/img/suivi-inscription2.svg"
               alt="deuxieme étape de l'inscription"
@@ -398,9 +382,8 @@ const Repetpassword = () => {
 
           <div class="w-full mb-5 ">
            
-            <div @click="doCreateAccount" class="py-3 bg-gray-50 rounded-full text-center mb-2">
-             <h4>Continuer</h4>
-            </div>
+          
+            <Button text="Continuer"  @click="doCreateAccount" />
             <img
               src="/img/suivi-inscription3.svg"
               alt="derniere étape de l'inscription"

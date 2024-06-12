@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { useRoute ,useRouter } from 'vue-router/auto'
+import { useRoute, useRouter } from 'vue-router/auto'
 import { onMounted, ref } from 'vue'
 import { updateDream, truncateDescription, getDreamByID, deleteDream } from '@/backend'
 import IconCheck from '@/components/icons/IconCheck.vue'
 import IconHelp from '@/components/icons/IconHelp.vue'
 import { pb } from '@/backend'
+import Button from '@/components/Button.vue'
 
 const route = useRoute('/modifierreve/[id]')
-  console.log('id :', route.params.id)
-  
+console.log('id :', route.params.id)
+
 const currentUser = ref()
 const router = useRouter();
 onMounted(async () => {
@@ -55,6 +56,7 @@ console.log(reveid)
 
 import { Type_reve, Notes, Longeur_reve } from '@/data';
 import IconPoubelle from '@/components/icons/IconPoubelle.vue'
+import type { RevesLongeurReveOptions, RevesNoteReveOptions, RevesTypeReveOptions } from '@/pocketbase-types'
 let selectedType = ref(reveid.Type_reve)
 let selectedNote = ref(reveid.Note_reve)
 let selectedLongeur = ref(reveid.Longeur_reve)
@@ -68,23 +70,23 @@ const Description = ref(reveid.Description)
 
 
 
-const selectType = (type) => {
+const selectType = (type: RevesTypeReveOptions) => {
     selectedType.value = type;
 }
-const selectNote = (note) => {
+const selectNote = (note: RevesNoteReveOptions) => {
     selectedNote.value = note;
 }
-const selectLongeur = (longeur) => {
+const selectLongeur = (longeur: RevesLongeurReveOptions) => {
     selectedLongeur.value = longeur;
 }
 
-const isTypeSelected = (type) => {
+const isTypeSelected = (type: string) => {
     return selectedType.value === type;
 }
-const isNoteSelected = (note) => {
+const isNoteSelected = (note: string) => {
     return selectedNote.value === note;
 }
-const isLongeurSelected = (longeur) => {
+const isLongeurSelected = (longeur: string) => {
     return selectedLongeur.value === longeur;
 }
 
@@ -111,96 +113,102 @@ const isLongeurSelected = (longeur) => {
                 </div>
 
                 <div v-if="recit">
-                    
-                    <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-3 pt-5 pb-0  w-full focus:bg-violet-800 rounded-xl h5  " v-model="Titre"
-                    type="text" name="Titre" id="Titre" autocomplete="none" placeholder="Ajoute un titre"></textarea>
-                    <textarea class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl" v-model="Description"
-name="Description" id="Description" autocomplete="none"
-placeholder="Raconte ton rêve..."></textarea>
 
-            </div>
+                    <textarea
+                        class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-3 pt-5 pb-0  w-full focus:bg-violet-800 rounded-xl h5  "
+                        v-model="Titre" type="text" name="Titre" id="Titre" autocomplete="none"
+                        placeholder="Ajoute un titre"></textarea>
+                    <textarea
+                        class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl"
+                        v-model="Description" name="Description" id="Description" autocomplete="none"
+                        placeholder="Raconte ton rêve..."></textarea>
+
+                </div>
 
                 <div v-if="détails" class=" mt-8 gap-4 flex flex-col">
-<section class="flex flex-col gap-2 px-4 py-4  bg-violet-900 rounded-3xl">
-    <h4 class="text-gray-50">Type</h4>
-    <div class="grid grid-cols-4 gap-2">
-        <div  class="flex flex-col items-center p-2 gap-1 bg-violet-700 rounded-2xl pt-4" 
-        v-for="image in Type_reve" 
-     :key="image.id"
-     :class="{ '!bg-gray-50 ': isTypeSelected(image.id) }"
-     @click="selectType(image.id)">
-     <img :src="image.imgPath" :alt="image.imgAlt"  >
-            <small class="text-violet-300" :class="{'text-violet-500':isTypeSelected(image.id) }">{{image.imgAlt}}</small>
-        </div>
-        
-    </div>
-</section>
+                    <section class="flex flex-col gap-2 px-4 py-4  bg-violet-900 rounded-3xl">
+                        <h4 class="text-gray-50">Type</h4>
+                        <div class="grid grid-cols-4 gap-2">
+                            <div class="flex flex-col items-center p-2 gap-1 bg-violet-700 rounded-2xl pt-4"
+                                v-for="image in Type_reve" :key="image.id"
+                                :class="{ '!bg-gray-50 ': isTypeSelected(image.id) }" @click="selectType(image.id)">
+                                <img :src="image.imgPath" :alt="image.imgAlt">
+                                <small class="text-violet-300"
+                                    :class="{ 'text-violet-500': isTypeSelected(image.id) }">{{ image.imgAlt }}</small>
+                            </div>
 
-<div class="flex flex-col gap-2  pb-4  bg-violet-900 rounded-3xl">
-<section class=" px-4 pt-4 rounded-3xl transition-colors duration-300 ease-in-out"  :class="{ 'bg-zinc-950 mb-3': help }">
-    <div class="flex justify-between">
-  <h4 class="text-gray-50">Note</h4> 
-  <div @click="help = !help" class="rounded-full px-[2px] py-[7px] stroke-gray-50 " :class="{'bg-gray-50 !stroke-violet-950' : help}">
-    <IconHelp /> 
-  </div>
-</div>
-<p v-if="help" class="flex justify-center py-3 " >La note ton rêve. As-tu apprécié l’expérience?</p>
-</section>
+                        </div>
+                    </section>
 
-    <div class="grid grid-cols-5 gap-2 px-8">
-        <div  class="flex justify-center p-5 gap-1 bg-violet-700 rounded-3xl pt-4" 
-        v-for="chiffre in Notes" 
-     :key="chiffre.id"
-     :class="{ '!bg-gray-50 ': isNoteSelected(chiffre.id) }"
-     @click="selectNote(chiffre.id)">
-           <h4 class="mt-1 text-violet-300" :class="{ 'text-violet-500 ': isNoteSelected(chiffre.id) }">{{ chiffre.id }}</h4>
-        </div>
-        <div class="flex justify-between col-span-full text-zinc-400 leading-3">
-            <p class="text-violet-200">Horrible</p>
-            <p class="text-violet-200">Merveilleux</p>
-           </div>
-    </div>
-</div>
+                    <div class="flex flex-col gap-2  pb-4  bg-violet-900 rounded-3xl">
+                        <section class=" px-4 pt-4 rounded-3xl transition-colors duration-300 ease-in-out"
+                            :class="{ 'bg-zinc-950 mb-3': help }">
+                            <div class="flex justify-between">
+                                <h4 class="text-gray-50">Note</h4>
+                                <div @click="help = !help" class="rounded-full px-[2px] py-[7px] stroke-gray-50 "
+                                    :class="{ 'bg-gray-50 !stroke-violet-950': help }">
+                                    <IconHelp />
+                                </div>
+                            </div>
+                            <p v-if="help" class="flex justify-center py-3 ">La note ton rêve. As-tu apprécié
+                                l’expérience?</p>
+                        </section>
 
-<div class="flex flex-col gap-2  pb-4  bg-violet-900 rounded-3xl">
-<section class=" px-4 pt-4 rounded-3xl transition-colors duration-300 ease-in-out"  :class="{ 'bg-zinc-950 mb-3': help2 }">
-    <div class="flex justify-between">
-  <h4 class="text-gray-50">Longueur du rêve</h4> 
-  <div @click="help2 = !help2" class="rounded-full px-[2px] py-[7px] stroke-gray-50 " :class="{'bg-gray-50 !stroke-violet-950' : help2}">
-    <IconHelp /> 
-  </div>
-</div>
-<p v-if="help2" class="flex justify-center py-3 " >Quel à été ton ressenti sur la longueur de ce rêve ?</p>
-</section>
+                        <div class="grid grid-cols-5 gap-2 px-8">
+                            <div class="flex justify-center p-5 gap-1 bg-violet-700 rounded-3xl pt-4"
+                                v-for="chiffre in Notes" :key="chiffre.id"
+                                :class="{ '!bg-gray-50 ': isNoteSelected(chiffre.id) }" @click="selectNote(chiffre.id)">
+                                <h4 class="mt-1 text-violet-300"
+                                    :class="{ 'text-violet-500 ': isNoteSelected(chiffre.id) }">{{ chiffre.id }}</h4>
+                            </div>
+                            <div class="flex justify-between col-span-full text-zinc-400 leading-3">
+                                <p class="text-violet-200">Horrible</p>
+                                <p class="text-violet-200">Merveilleux</p>
+                            </div>
+                        </div>
+                    </div>
 
-    <div class="grid grid-cols-5 gap-2 px-8">
-        <div  class="flex justify-center p-5 gap-1 bg-violet-700 rounded-3xl pt-4" 
-        v-for="chiffre in Longeur_reve" 
-     :key="chiffre.id"
-     :class="{ '!bg-gray-50 ': isLongeurSelected(chiffre.id) }"
-     @click="selectLongeur(chiffre.id)">
-           <h4 class="mt-1 text-violet-300" :class="{ 'text-violet-500 ': isLongeurSelected(chiffre.id) }">{{ chiffre.id }}</h4>
-        </div>
-        <div class="flex justify-between col-span-full text-zinc-400 leading-3">
-            <p class="text-violet-200">Très court</p>
-            <p class="text-violet-200">Interminable</p>
-           </div>
-    </div>
-</div>
+                    <div class="flex flex-col gap-2  pb-4  bg-violet-900 rounded-3xl">
+                        <section class=" px-4 pt-4 rounded-3xl transition-colors duration-300 ease-in-out"
+                            :class="{ 'bg-zinc-950 mb-3': help2 }">
+                            <div class="flex justify-between">
+                                <h4 class="text-gray-50">Longueur du rêve</h4>
+                                <div @click="help2 = !help2" class="rounded-full px-[2px] py-[7px] stroke-gray-50 "
+                                    :class="{ 'bg-gray-50 !stroke-violet-950': help2 }">
+                                    <IconHelp />
+                                </div>
+                            </div>
+                            <p v-if="help2" class="flex justify-center py-3 ">Quel à été ton ressenti sur la longueur de
+                                ce rêve ?</p>
+                        </section>
+
+                        <div class="grid grid-cols-5 gap-2 px-8">
+                            <div class="flex justify-center p-5 gap-1 bg-violet-700 rounded-3xl pt-4"
+                                v-for="chiffre in Longeur_reve" :key="chiffre.id"
+                                :class="{ '!bg-gray-50 ': isLongeurSelected(chiffre.id) }"
+                                @click="selectLongeur(chiffre.id)">
+                                <h4 class="mt-1 text-violet-300"
+                                    :class="{ 'text-violet-500 ': isLongeurSelected(chiffre.id) }">{{ chiffre.id }}</h4>
+                            </div>
+                            <div class="flex justify-between col-span-full text-zinc-400 leading-3">
+                                <p class="text-violet-200">Très court</p>
+                                <p class="text-violet-200">Interminable</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-<div class="flex justify-between">
-                <div @click="doUpdatedream" class="my-9 flex gap-3 py-4 bg-gray-50 px-[10dvw] rounded-full justify-center">
-                    <IconCheck class="stroke-violet-500" />
-                    <h4>Sauvegarder</h4>
+                <div class="flex justify-between items-center mt-5">
+    <Button @click="doUpdatedream" text="Sauvegarder" :icon="IconCheck"
+            icon-class="stroke-violet-500" />
+
+            <Button @click="doDelete" variant="red"  :icon="IconPoubelle"
+            icon-class="stroke-violet-500" />
+  
+
                 </div>
-                <div @click="doDelete" class="my-9 py-4 bg-red-700 px-[8dvw] rounded-full justify-center">
-                    <IconPoubelle />
-                   
-                </div>
-</div>
             </div>
         </div>
-        
+
     </div>
     <img src="/img/footer-liquid.svg" alt="illustrations d'étoiles" class="w-full">
 </template>

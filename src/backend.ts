@@ -110,10 +110,10 @@ export async function allDreamByUserName(id) {
           sort: 'created' });
 }
 
-//la liste de toutes les reves de l'utilisateur 
+//la liste de toutes les reves de l'utilisateur tri" par ordre decroissant
 export async function allDreamConnectedUser(id) {
   return await pb.collection('reves').getFullList(
-      { filter: `users.id = '${id}'`, expand: 'users' });
+      { filter: `users.id = '${id}'`, expand: 'users', sort: '-created'});
 }
 
 //Fonction pour appeler l'IA et intérpréter un rêve

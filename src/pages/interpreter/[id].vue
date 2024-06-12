@@ -5,6 +5,7 @@ import { getDreamByID } from '@/backend'
 import { pb } from '@/backend'
 import IconInterpreter from '@/components/icons/IconInterpreter.vue'
 import LoadingBar from '@/components/LoadingBar.vue'
+import Button from '@/components/Button.vue'
 
 const route = useRoute('/interpreter/[id]')
 console.log('id :', route.params.id)
@@ -41,7 +42,7 @@ async function createInterpretation() {
  setTimeout(() => {
         isLoading.value = false
         router.push({ name: '/resultatIA/[id]', params: { id: reveid.id } });
-      }, 4000)
+      }, 1000)
 }
 </script>
 
@@ -65,15 +66,12 @@ async function createInterpretation() {
         </div>
         <form @submit.prevent="createInterpretation">
           <textarea
-            class=" mt-2 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl"
+            class=" mt-2 mb-7 placeholder:text-gray-50 border-none bg-violet-900 p-4 pb-[35dvh] w-full focus:bg-violet-800 rounded-xl"
             v-model="userMessage" name="Rêve" id="Rêve" autocomplete="none"
             placeholder="Raconte moi ton rêve..."></textarea>
 
-          <button type="submit"
-            class="my-7 flex gap-3 py-4 bg-gray-50 rounded-full justify-center items-center w-full">
-            <IconInterpreter class="fill-violet-500 w-7 h-7 " />
-            <h4>Interpreter</h4>
-          </button>
+          
+          <Button text="Interpreter" type="submit" :icon="IconInterpreter" icon-class="fill-violet-500" />
         </form>
         
       </div>
@@ -86,7 +84,7 @@ async function createInterpretation() {
       <div class="bg-violet-950 pt-8 px-7 z-30">
         <h1>Analyse de ton rêve en cours...</h1>
         <div class="my-10">
-    <LoadingBar :duration="3200" />
+    <LoadingBar :duration="4000" />
         </div>
         <p>"Le savais-tu ? Le diamant est le fruit de la cristallisation du carbone, ce même carbone dont est constitué le charbon !"</p>
         <div class="flex justify-center ">

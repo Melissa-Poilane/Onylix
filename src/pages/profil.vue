@@ -50,7 +50,7 @@ const saveBio = async () => {
  return { editing, newBio, saveBio }
 };
 
-const updatedream = async (id) => {
+const updatedream = async (id: any) => {
   try {
     const dream = {
       "online": false

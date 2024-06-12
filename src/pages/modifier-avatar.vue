@@ -3,6 +3,7 @@
 import { onMounted, ref } from 'vue'
 import { profilePictures } from '@/data';
 import { useRouter } from "vue-router";
+import Button from '@/components/Button.vue';
 
 defineProps<{
   id: number;
@@ -48,10 +49,10 @@ const doUpdateuser = async () => {
   }
 };
 
-const selectImage = (image) => {
+const selectImage = (image: null) => {
   selectedImageIndex.value = image;
 }
-const isSelected = (image) => {
+const isSelected = (image: string | null) => {
   return selectedImageIndex.value === image;
 }
 
@@ -87,11 +88,8 @@ const isSelected = (image) => {
           </div>
 
           <div class="w-full mb-5 ">
-           
-            <div @click="doUpdateuser" class="py-3 bg-violet-500 rounded-full text-center mb-2 ">
-              <h4 class="text-gray-50">Confirmer</h4>
-            </div>
-           
+          
+            <Button text="Confirmer" @click="doUpdateuser" variant="purple" textcolor="white" />
           </div>
         </div>
       </div>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import Button from '@/components/Button.vue';
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import FooterPage from '@/components/FooterPage.vue';
@@ -113,12 +113,9 @@ const doDeleteuser = async () => {
   <h3 class="mb-3 mt-32 z-10">Tu es sûr-e ?</h3>
   <h4 class="text-gray-50 z-10 mb-32">Cette action est irréversible</h4>
   <div class="flex flex-col gap-7 mx-14">
-    <div @click="doDeleteuser" class="py-3 bg-red-700 rounded-full text-center mb-2 ">
-              <h4 class="text-gray-50">Supprimer mon compte</h4>
-            </div>
-            <div @click="parametre = true"  class="py-3 bg-gray-50 rounded-full text-center mb-2 ">
-              <h4 >Annuler</h4>
-            </div>
+    <Button text="Supprimer mon compte" @click="doDeleteuser" variant="red" textcolor="white" />
+    <Button text="Annuler" @click="parametre = true" />
+   
     
   </div>
 </div>

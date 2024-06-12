@@ -55,23 +55,23 @@ const docreatedream = async () => {
     }
 };
 
-const selectType = (type) => {
+const selectType = (type: string) => {
     selectedType.value = type;
 }
-const selectNote = (note) => {
+const selectNote = (note: string) => {
     selectedNote.value = note;
 }
-const selectLongeur = (longeur) => {
+const selectLongeur = (longeur: string) => {
     selectedLongeur.value = longeur;
 }
 
-const isTypeSelected = (type) => {
+const isTypeSelected = (type: string) => {
     return selectedType.value === type;
 }
-const isNoteSelected = (note) => {
+const isNoteSelected = (note: string) => {
     return selectedNote.value === note;
 }
-const isLongeurSelected = (longeur) => {
+const isLongeurSelected = (longeur: string) => {
     return selectedLongeur.value === longeur;
 }
 

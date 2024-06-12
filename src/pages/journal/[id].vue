@@ -8,6 +8,7 @@ import IconModif from '@/components/icons/IconModif.vue';
 import { formatDate } from '@/helper';
 import IconInterpreter from '@/components/icons/IconInterpreter.vue';
 import IconTypeReve from '@/components/icons/IconTypeReve.vue';
+import Button from '@/components/Button.vue';
 
   const route = useRoute('/interpreter/[id]')
   console.log('id :', route.params.id)
@@ -29,7 +30,7 @@ const goBack = () => {
     router.go(-1);
 }
 
-const updatedream = async (id) => {
+const updatedream = async (id: any) => {
   try {
     const dream = {
       "online": true
@@ -123,9 +124,8 @@ let détails = ref(false)
             <RouterLink v-if="!reveid.Analyse"  :to="{
             name: '/interpreter/[id]',
             params: { id: reveid.id }
-          }" class="py-3 bg-gray-50 rounded-full text-center mb-2 fixed bottom-7 w-[85dvw] flex justify-center gap-3 items-center">
-              <IconInterpreter class="fill-violet-500 w-5 h-5 "/>
-                <h4>Analyser</h4>
+          }" class=" fixed bottom-7 w-[85dvw]">
+               <Button text="Interpreter" :icon="IconInterpreter" iconClass="fill-violet-500" />
             </RouterLink>
 
       </div> 

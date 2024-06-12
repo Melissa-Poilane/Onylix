@@ -4,17 +4,11 @@ import HeaderInscription from '@/components/HeaderInscription.vue'
 import { onMounted, ref } from 'vue'
 import { pb } from '@/backend'
 import { useRouter } from 'vue-router/auto'
-defineProps<{
-  id: number;
-  imgpfp: string;
-    imgAlt: string;
-}>()
+import Button from '@/components/Button.vue'
 
 const currentUser = ref()
 const email = ref('') 
 
-const welcolme = ref(true)
-const loginMode = ref(false)
 
 onMounted(async () => {
 
@@ -34,6 +28,9 @@ const doResetPassword = async () => {
       }, 3000)
 }
 
+const goBack = () => {
+  router.go(-1);
+}
 
 </script>
 
@@ -43,10 +40,7 @@ const doResetPassword = async () => {
       <div  class="flex flex-col justify-between min-h-screen">
         <div>
           <div class="absolute top-10 left-6 z-20 ">
-        <button @click="
-                loginMode = false,
-                welcolme = true
-              ">
+        <button @click=" goBack">
           <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
@@ -61,7 +55,7 @@ const doResetPassword = async () => {
             class="absolute top-[200px] opacity-50"
           />
         </div>
-        <div class="px-10 flex flex-col justify-between h-[39dvh] gap-5">
+        <div class="px-10 flex flex-col justify-between h-[39dvh] gap-5 mb-10">
           <section >
             <label for="username"><h5>Ton Email</h5></label>
             <input
@@ -75,9 +69,8 @@ const doResetPassword = async () => {
             <h2 v-if="confirm" class=" bg-zinc-950 bg-opacity-70 rounded-2xl z-10  text-center p-20 mt-5">Email envoyé</h2>
           </section>
           
-          <button type="button" @click="doResetPassword" class="py-3 bg-gray-50 rounded-full w-full ">
-            <h4>Réinitialiser</h4>
-          </button>
+          
+          <Button text="Réinitialiser" @click="doResetPassword" />
         </div>
         
           

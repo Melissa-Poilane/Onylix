@@ -25,7 +25,6 @@ const Reves = await allDreamUserSort()
 const Users = await allUser()
 console.log(Reves)
 console.log(Users)
-console.log(Reves[0].expand.users.Avatar)
 </script>
 
 <template>
