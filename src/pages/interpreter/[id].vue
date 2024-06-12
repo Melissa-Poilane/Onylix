@@ -70,9 +70,9 @@ async function createInterpretation() {
             v-model="userMessage" name="Rêve" id="Rêve" autocomplete="none"
             placeholder="Raconte moi ton rêve..."></textarea>
 
-          
-          <Button text="Interpreter" type="submit" :icon="IconInterpreter" icon-class="fill-violet-500" />
-        </form>
+          <button type="submit" class="w-full">
+          <Button text="Interpreter"  :icon="IconInterpreter" icon-class="fill-violet-500" />
+        </button></form>
         
       </div>
       <img src="/img/footer-liquid.svg" alt="illustrations footer" class="w-full mt-7">
