@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import TabBar from '@/components/TabBar.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
-import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { formatDate } from '@/helper';
   const route = useRoute('/reves/[id]')
   console.log('id :', route.params.id)
@@ -35,7 +34,7 @@ const reveid = await getDreamByID(route.params.id)
         <div class="grid grid-cols-[80px_1fr] gap-5 pt-24 px-8 items-center bg-violet-950 rounded-t-[50px] ">
         <IconProfil :Avatar="reveid.expand.users.Avatar" class=" w-[74px] h-[79px] z-10" />
         <section class="flex flex-col gap-1">
-                  <IconAbonnement :Abonnement="reveid.expand.users.Abonnement" class="w-[25px]" />
+                
           
                   <p class="leading-[0px] pt-3">Par {{ reveid.expand.users.name }}</p>
           <small >Le {{ formatDate(reveid.Date) }}</small>

@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import PocketBase from 'pocketbase'
 import { profilePictures } from '@/data';
 import { useRouter } from "vue-router";
 

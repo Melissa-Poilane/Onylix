@@ -4,7 +4,6 @@ import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
 import TabBar from '@/components/TabBar.vue';
 import IconProfil from '@/components/icons/IconProfil.vue';
-import IconAbonnement from '@/components/icons/IconAbonnement.vue';
 import { RouterLink } from 'vue-router';
 import { formatDate } from '@/helper';
 import { pb } from '@/backend'
@@ -56,7 +55,7 @@ console.log(Reves[0].expand.users.Avatar)
               <div class="grid grid-rows-[15px_20px] gap-1">
                 <div class="flex gap-1 self-baseline">
                   <p>{{ reve.expand.users.name }}</p>
-                  <IconAbonnement :Abonnement="reve.expand.users.Abonnement" />
+                
                 </div>
                 <small >Le {{ formatDate(reve.Date) }}</small>
                 <div class="flex flex-col relative gap-[10px]">

@@ -30,7 +30,7 @@ console.log(Users)
    <div class="relative flex flex-col pt-10 px-6">
    
         <button @click="goBack" class="absolute top-10 z-20">
-        <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
     
         <section class="flex flex-col items-center text-center px-5 my-6"> 

@@ -13,7 +13,7 @@ const goBack = () => {
     <div  class="sticky top-0">
         <div class="relative flex flex-col degradsombre pt-28 px-6">
         <button @click="goBack" class="absolute top-10 z-20">
-        <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+        <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
         <section class="z-10 ">
             

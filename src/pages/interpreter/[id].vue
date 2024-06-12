@@ -81,7 +81,7 @@ const handleSubmit = async () => {
       <img src="/img/nuage-reves.svg" alt="illustrations d'étoiles" class="absolute right-0 top-7 z-0 opacity-60 ">
       <div class="absolute top-10 left-6 z-20 ">
         <button @click="goBack">
-          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
       <h1 class="text-center px-7 mt-8">{{ reveid.Titre }}</h1>

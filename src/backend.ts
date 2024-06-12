@@ -79,7 +79,10 @@ export async function createUser(user) {
 export async function deleteDream(id) {
   return await pb.collection(Collections.Reves).delete(id);
 }
-
+//supprimer un enregistrement dans la collection users
+export async function deleteUser(id) {
+  return await pb.collection(Collections.Users).delete(id);
+}
 //Modifier un enregistrement dans la collection users
 export async function updateUser(id, user) {
   return await pb.collection(Collections.Users).update(id, user);

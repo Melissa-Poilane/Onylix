@@ -110,8 +110,16 @@ const isSelected = (image) => {
   return selectedImageIndex.value === image;
 }
 
+let passwordError = false;
+let passwordrepetError = false;
 
+const validatePassword = () => {
+    passwordError = password.value.length < 7
+}
 
+const Repetpassword = () => {
+    passwordrepetError = passwordConfirm.value !== password.value
+}
 </script>
 
 <template>
@@ -157,7 +165,7 @@ const isSelected = (image) => {
                 loginMode = false,
                 welcolme = true
               ">
-          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
         <div class="mb-auto flex justify-center">
@@ -193,6 +201,7 @@ const isSelected = (image) => {
               autocomplete="none"
               placeholder="Ex : super_mot_de_passe@25"
             />
+          
           </section>
           <!-- RECUPERATION DE MDP A FAIRE -->
           <RouterLink to="/changementMDP" >
@@ -216,7 +225,7 @@ const isSelected = (image) => {
                 registerMode = false,
                 welcolme = true
               ">
-          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
         <div class="flex justify-center">
@@ -242,6 +251,7 @@ const isSelected = (image) => {
           <section >
             <label for="password"><h5>Ton Mot De Passe</h5></label>
             <input
+            @input="validatePassword" 
               v-model="password"
               type="password"
               name="password"
@@ -249,16 +259,19 @@ const isSelected = (image) => {
               autocomplete="none"
               placeholder="Ex : super_mot_de_passe@25"
             />
+            <p v-if="passwordError" class="BodyS m-1 text-violet-400">Le mot de passe doit faire au moins 8 caractères</p>
           </section>
             <section >
             <label for="password"><h5>Confirme Ton Mot De Passe</h5></label>
             <input
+            @input="Repetpassword"
               v-model="passwordConfirm"
               type="password"
               name="password"
               id="password"
               autocomplete="none"
             />
+            <p v-if="passwordrepetError" class="BodyS m-1 text-violet-400">Les mots de passe ne correspondent pas</p>
           </section>
           <section class="flex items-center gap-3">
             <input type="checkbox" id="terms" v-model="termsAccepted" required />
@@ -295,7 +308,7 @@ const isSelected = (image) => {
                 step2 = false,
                 registerMode = true
               ">
-          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">
@@ -355,7 +368,7 @@ const isSelected = (image) => {
                 step3 = false,
                 step2 = true
               ">
-          <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+          <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
         </button>
       </div>
         <div class="flex flex-col justify-between items-center min-h-screen mx-10">

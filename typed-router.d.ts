@@ -19,6 +19,7 @@ declare module 'vue-router/auto-routes' {
    */
   export interface RouteNamedMap {
     '/': RouteRecordInfo<'/', '/', Record<never, never>, Record<never, never>>,
+    '/[...page404]': RouteRecordInfo<'/[...page404]', '/:page404(.*)', { page404: ParamValue<true> }, { page404: ParamValue<false> }>,
     '/ChangementMDP': RouteRecordInfo<'/ChangementMDP', '/ChangementMDP', Record<never, never>, Record<never, never>>,
     '/connexion': RouteRecordInfo<'/connexion', '/connexion', Record<never, never>, Record<never, never>>,
     '/infos-legales': RouteRecordInfo<'/infos-legales', '/infos-legales', Record<never, never>, Record<never, never>>,
@@ -34,6 +35,7 @@ declare module 'vue-router/auto-routes' {
     '/reveurs/[id]': RouteRecordInfo<'/reveurs/[id]', '/reveurs/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/reveuser/[id]': RouteRecordInfo<'/reveuser/[id]', '/reveuser/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
     '/saisir-reve': RouteRecordInfo<'/saisir-reve', '/saisir-reve', Record<never, never>, Record<never, never>>,
+    '/support': RouteRecordInfo<'/support', '/support', Record<never, never>, Record<never, never>>,
     '/welcolmeuser': RouteRecordInfo<'/welcolmeuser', '/welcolmeuser', Record<never, never>, Record<never, never>>,
   }
 }

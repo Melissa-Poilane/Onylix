@@ -84,7 +84,7 @@ const isLongeurSelected = (longeur) => {
 
             <div class="absolute top-10 left-6 z-20 ">
                 <button @click="goBack">
-                    <img src="/img/icones/Fleche- retour.svg" alt="fleche retour en arriere">
+                    <img src="/img/icones/Fleche-retour.svg" alt="fleche retour en arriere">
                 </button>
             </div>
             <div class="mt-5 px-6">
