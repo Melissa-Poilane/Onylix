@@ -333,17 +333,18 @@ const validatePassword = () => {
             <img
               src="/img/papillon2.svg"
               alt="image de papillon"
-              class="absolute bottom-5 left-0"
+              class="absolute bottom-5 left-0 z-0"
             />
             
+            <div class="relative z-20">
             <Button text="Continuer"  @click="
                   step2 = false,
                   step3 = true" />
             <img
               src="/img/suivi-inscription2.svg"
               alt="deuxieme étape de l'inscription"
-              class="max-w-14 absolute -bottom-2 left-[45.5%]"
-            />
+              class="max-w-14 absolute -bottom-5 left-[45.5%]"
+            /></div>
           </div>
         </div>
       </div>
@@ -384,11 +385,12 @@ const validatePassword = () => {
            
           
             <Button text="Continuer"  @click="doCreateAccount" />
+           <div class="relative">
             <img
               src="/img/suivi-inscription3.svg"
               alt="derniere étape de l'inscription"
-              class="max-w-14 absolute bottom-2 left-[45.5%]"
-            />
+              class="max-w-14 absolute -bottom-2 left-[45.5%]"
+            /></div>
           </div>
         </div>
       </div>

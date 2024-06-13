@@ -72,7 +72,7 @@ const updatedream = async (id: any) => {
    <IconParams />
    </RouterLink>
 
-   <section class="flex flex-col items-center justify-center text-center px-5 my-6 w-full">
+   <section class="flex flex-col items-center justify-center text-center px-5 my-6 w-full z-20">
     <div class="relative w-[110px] mt-8">
  <IconProfil v-bind="currentUser" class=" w-[98px] h-[105px] z-[2] mb-4" />
  <RouterLink to="/modifier-avatar" class="absolute right-1 bottom-2 z-10" >
@@ -84,7 +84,7 @@ const updatedream = async (id: any) => {
     <p v-if="!editing" class="mt-2 flex justify-center items-center gap-2">{{ currentUser.biographie }}
     <IconModif @click="editing = true"  v-if="!editing" class=" self-end z-40" />
    </p>
-   <div v-if="editing" >
+   <div v-if="editing">
       <input class="border-none bg-zinc-900 bg-opacity-40 p-4 py-5 z-40 text-center w-full"  type="text"  v-model="newBio" name="biographie" id="biographie" autocomplete="none" placeholder="Ex : J'aime les licornes et les arcs-en-ciel" /> 
       <button @click="saveBio" class="absolute left-[49%] -bottom-6 z-10"><img src="/img/icones/save.svg" alt="sauvegarder"></button>
     </div> 
@@ -95,14 +95,14 @@ const updatedream = async (id: any) => {
    <img src="/img/Papillions-profil.svg" alt="illustration de papillons" class="absolute inset-0 w-full object-cover z-0">
   
   
- <h4 class="bg-violet-900 py-3 px-12 rounded-full text-gray-50 z-40">Rêves publiés</h4>
+ <h4 v-if="Reves.length > 0" class="bg-violet-900 py-3 px-12 rounded-full text-gray-50 z-40">Rêves publiés</h4>
    
     </div> 
     <div class="bg-violet-900 mx-3 rounded-3xl px-4 py-5 my-3 flex flex-col gap-3  z-30">
       
      
         <h4 v-if="Reves.length === 0" class="text-gray-50 text-center ">Tu n'as pas encore publié de rêves !</h4>
-        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl z-40">
+        <div v-else v-for="reve in Reves" :key="reve" class="bg-violet-700 px-4 py-3 rounded-3xl z-20">
           
 
             <article >
