@@ -8,6 +8,7 @@ import { pb } from '@/backend'
 import Button from '@/components/Button.vue';
 
 
+
 defineProps<{
   id: number;
   imgpfp: string;
@@ -48,6 +49,15 @@ const doLogin = async () => {
     }
   } catch (error) {
     alert(error.message)
+  }
+}
+
+const LogInGoogle = async () => {
+  const authData =
+  await pb.collection('users').authWithOAuth2({ provider: 'google' });
+  console.log('Connexion avec Google', authData);
+  if (authData) {
+    router.push('/')
   }
 }
 
@@ -206,6 +216,7 @@ const validatePassword = () => {
 </RouterLink>
          
             <Button text="Connexion" @click="doLogin" />
+            <button @click="LogInGoogle">Connexion via Google</button>
         </div>
       </div>
         <footer>
