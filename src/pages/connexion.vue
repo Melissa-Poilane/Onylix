@@ -6,7 +6,7 @@ import { useRouter } from "vue-router";
 import { profilePictures } from '@/data';
 import { pb } from '@/backend'
 import Button from '@/components/Button.vue';
-
+import IconGoogle from '@/components/icons/IconGoogle.vue';
 
 
 defineProps<{
@@ -216,7 +216,7 @@ const validatePassword = () => {
 </RouterLink>
          
             <Button text="Connexion" @click="doLogin" />
-            <button @click="LogInGoogle">Connexion via Google</button>
+            <Button text="Connexion Google" @click="LogInGoogle" :icon="IconGoogle"/>
         </div>
       </div>
         <footer>

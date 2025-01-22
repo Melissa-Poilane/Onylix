@@ -43,7 +43,7 @@ h2, h5, h6 {
     }
 
     small {
-        @apply text-[10px] leading-[13.42px] text-zinc-400 my-1;
+        @apply text-[14px] leading-[14px] text-zinc-400 my-1;
     }
 
     input {
